@@ -1,17 +1,19 @@
 package com.rickandmortyapi
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.rickandmortyapi.navigation.NavigationWrapper
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
-
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // YOUR CODE HERE :)
-    }
-
-    companion object {
-        private const val BASE_URL = "https://rickandmortyapi.com/api/"
+        //enableEdgeToEdge()
+        setContent {
+            NavigationWrapper()
+        }
     }
 }

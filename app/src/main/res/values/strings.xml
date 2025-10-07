@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ricky and Morty API</string>
+    <string name="bottom_bar__characters">Characters</string>
+    <string name="bottom_bar__episodes">Episodes</string>
+    <string name="bottom_bar__locations">Locations</string>
+    <string name="content_description__logo">Rick and Morty logo</string>
 </resources>

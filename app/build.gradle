@@ -1,32 +1,63 @@
 plugins {
-  id 'com.android.application'
-  id 'org.jetbrains.kotlin.android' version '2.0.0'
-  id 'com.diffplug.spotless' version '6.25.0'
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.kotlin.compose)
+
+  alias(libs.plugins.jetbrainsKotlinSerialization)
+
+  alias(libs.plugins.dagger.hilt.android)
+  alias(libs.plugins.kotlinAndroidKsp)
 }
 
 android {
-  namespace 'com.rickandmortyapi'
-  compileSdk 35
+  namespace = 'com.rickandmortyapi'
+  compileSdk = 35
 
   defaultConfig {
-    applicationId "com.rickandmortyapi"
-    minSdk 26
-    targetSdk 35
-    versionCode 1
-    versionName "1.0"
+    applicationId = "com.rickandmortyapi"
+    minSdk = 28
+    targetSdk = 34
+    versionCode = 1
+    versionName = "1.0"
   }
 
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_1_8 // Solution From: https://github.com/jonataslaw/VideoCompress/pull/246/commits/55a32a17c882df6192d7dee4e73d4a37f97df395
+  }
   buildFeatures {
+    buildConfig = true
     compose true
   }
 }
 
 dependencies {
-  implementation group: 'androidx.appcompat', name: 'appcompat', version: '1.7.0'
+  implementation(libs.androidx.core.ktx)
+  implementation (libs.appcompat)
+  implementation(libs.kotlinx.serialization.json)
+  implementation(libs.androidx.navigation.compose)
+  implementation(platform(libs.androidx.compose.bom))
+  implementation(libs.dagger.hilt.android)
+  implementation (libs.androidx.foundation)
+  implementation (libs.androidx.activity.compose)
+  implementation (libs.androidx.compose.material.icons.extended)
+  ksp(libs.dagger.hilt.compiler)
+
+  implementation(libs.retrofit)
+  implementation(libs.converter.gson)
+  implementation(libs.okhttp)
+
+  implementation(libs.androidx.hilt.navigation.compose)
+  implementation(libs.androidx.ui)
+  implementation(libs.androidx.ui.graphics)
+  implementation(libs.androidx.material3)
+  implementation(libs.coil.compose)
+
+  testImplementation(libs.junit)
 }
 
 spotless {

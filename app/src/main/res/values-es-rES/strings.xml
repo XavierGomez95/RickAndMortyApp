@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ricky y Morty API</string>
+    <string name="bottom_bar__characters">Personajes</string>
+    <string name="bottom_bar__episodes">Capítulos</string>
+    <string name="bottom_bar__locations">Lugares</string>
+    <string name="content_description__logo">Rick y Morty logo</string>
+</resources>

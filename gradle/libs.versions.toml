@@ -1,0 +1,79 @@
+[versions]
+agp = "8.8.2"
+kotlin = "2.0.0"
+coreKtx = "1.15.0"
+appcompat = "1.7.0" # Last version with more usages: https://mvnrepository.com/artifact/androidx.appcompat/appcompat
+kotlinxSerialitzaton = "1.7.3"
+navigationCompose = "2.9.3" # Last version after 2.9 with more usages: https://mvnrepository.com/artifact/androidx.navigation/navigation-compose
+composeBom = "2025.03.01"
+spotless = "6.25.0" # Last version with more usages: https://mvnrepository.com/artifact/com.diffplug.spotless/spotless-plugin-gradle?sort=usages
+junit = "4.13.2"
+foundation = "1.7.8"
+material3 = "1.3.1"
+activityCompose = "1.10.1"
+
+# --- KSP / Hilt ---
+ksp = "2.0.0-1.0.23" # Can't use version 2.2.0-2.0.2 (issue not resolved yet: https://github.com/google/ksp/issues/2468)
+hilt = "2.51.1" # Version working with ksp 2.0.0-1.0.23 version
+hiltCompiler = "2.51.1" # Version working with ksp 2.0.0-1.0.23 version
+hiltNavigationCompose = "1.2.0"
+
+# --- Images ---
+coil = "2.7.0"
+
+# --- Networking ---
+retrofit = "2.9.0" # Last version with more usages: https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
+okhttp = "4.12.0" # Last version working with kotlin version 2.0.0
+
+
+
+
+[libraries]
+# Core
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+
+# Serialitzation
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialitzaton" }
+
+# Dependency Injection
+dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltCompiler" }
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
+# Images
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+# Jetpack Compose
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-foundation = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundation" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+
+# --- Testing ---
+junit = { group = "junit", name = "junit", version.ref = "junit" } # Unit Tests
+
+# --- Networking ---
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+okhttp = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+
+
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrainsKotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+
+# --- KSP / Hilt ---
+kotlinAndroidKsp = { id = "com.google.devtools.ksp", version.ref ="ksp" }
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
