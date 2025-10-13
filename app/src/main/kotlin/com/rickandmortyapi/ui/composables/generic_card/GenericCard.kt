@@ -45,7 +45,6 @@ fun <T> GenericCard(
             ),
             modifier = Modifier
                 .width(220.dp)
-                .clickable { onClick(genericModel) }
         ) {
             Column {
                 when (genericModel) {

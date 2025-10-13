@@ -36,6 +36,12 @@ android {
 }
 
 dependencies {
+  implementation(libs.androidx.room.ktx)
+  implementation(libs.androidx.room.runtime)
+  ksp(libs.androidx.room.compiler)
+
+  ksp(libs.dagger.hilt.compiler)
+
   implementation(libs.androidx.core.ktx)
   implementation (libs.appcompat)
   implementation(libs.kotlinx.serialization.json)
@@ -45,7 +51,6 @@ dependencies {
   implementation (libs.androidx.foundation)
   implementation (libs.androidx.activity.compose)
   implementation (libs.androidx.compose.material.icons.extended)
-  ksp(libs.dagger.hilt.compiler)
 
   implementation(libs.retrofit)
   implementation(libs.converter.gson)

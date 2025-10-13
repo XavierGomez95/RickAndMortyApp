@@ -11,6 +11,4 @@ data class CharacterModel (
     val status: String = "",
     val gender: String = "",
     val species: String = "",
-    val location: LocationModel,
-    val origin: OriginModel = OriginModel()
 )

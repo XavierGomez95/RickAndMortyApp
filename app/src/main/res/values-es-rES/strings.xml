@@ -5,10 +5,12 @@
     <string name="bottom_bar__episodes">Capítulos</string>
     <string name="bottom_bar__locations">Lugares</string>
     <string name="content_description__logo">Rick y Morty logo</string>
-    <string name="characters_failure">Error al cargar personajes</string>
+    <string name="characters_failure">Error al cargar los personajes</string>
     <string name="single_character_failure">Error al cargar la informaci\'on del personaje</string>
 
 
     <string name="search_bar_placeholder">Buscar por nombre</string>
     <string name="search_bar_close_description">Icono de cerrar</string>
+
+    <string name="episodes_failure">Error al cargar los episodios</string>
 </resources>

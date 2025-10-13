@@ -5,6 +5,5 @@ import com.rickandmortyapi.data.utils.Resource
 
 interface CharacterRepositoryInterface {
     suspend fun retrieveAllCharacters(): Resource<List<CharacterModel>>
-
-    suspend fun retrieveCharactersById(intArray: IntArray): Resource<List<CharacterModel>>
+    suspend fun getCharacterById(id: Int): Resource<CharacterModel>
 }

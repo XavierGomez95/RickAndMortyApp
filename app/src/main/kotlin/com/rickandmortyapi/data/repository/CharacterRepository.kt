@@ -1,14 +1,20 @@
 package com.rickandmortyapi.data.repository
 
+import android.util.Log
+import com.rickandmortyapi.data.database.dao.CharacterDao
+import com.rickandmortyapi.data.database.entities.CharacterEntity
 import com.rickandmortyapi.data.model.CharacterModel
 import com.rickandmortyapi.data.repository.interfaces.CharacterRepositoryInterface
 import com.rickandmortyapi.data.retrofit.RickAndMortyApiService
 import com.rickandmortyapi.data.utils.Resource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
 class CharacterRepository @Inject constructor(
-    private val apiService: RickAndMortyApiService
+    private val apiService: RickAndMortyApiService,
+    private val characterDao: CharacterDao
 ) : CharacterRepositoryInterface {
     override suspend fun retrieveAllCharacters(): Resource<List<CharacterModel>> {
         try {
@@ -31,19 +37,43 @@ class CharacterRepository @Inject constructor(
         }
     }
 
-    override suspend fun retrieveCharactersById(intArray: IntArray): Resource<List<CharacterModel>> {
-        try {
-            val specifiedCharacterData = mutableListOf<CharacterModel>()
 
-            val totalCharacters = intArray.size
-            for (index in 0 until totalCharacters) {
-                val currentCharacter = apiService.getCharacterById(intArray[index])
-                specifiedCharacterData.addAll(currentCharacter)
+    fun getCharacters(): List<CharacterEntity> = characterDao.getCharacter()
+
+    override suspend fun getCharacterById(id: Int): Resource<CharacterModel> {
+        try {
+            val localCharacterEntity = withContext(Dispatchers.IO) {
+                characterDao.getCharacterById(id)
+            }
+            if (localCharacterEntity != null) {
+                val localCharacter = CharacterModel(
+                    id = localCharacterEntity.id,
+                    name = localCharacterEntity.name,
+                    status = localCharacterEntity.status,
+                    species = localCharacterEntity.species,
+                    image = localCharacterEntity.image,
+                    gender = localCharacterEntity.gender
+                )
+                return Resource.Success(localCharacter)
             }
 
-            return Resource.Success(specifiedCharacterData)
+            val characterFromApi = apiService.getCharacterById(id)
+            withContext(Dispatchers.IO) {
+                characterDao.insertCharacter(
+                    CharacterEntity(
+                        id = characterFromApi.id,
+                        name = characterFromApi.name,
+                        status = characterFromApi.status,
+                        species = characterFromApi.species,
+                        image = characterFromApi.image,
+                        gender = characterFromApi.gender
+                    )
+                )
+            }
+            return Resource.Success(characterFromApi)
         } catch (e: Exception) {
-            e.stackTrace
+            e.printStackTrace()
+            Log.e("ÇÇÇÇ__CharacterRepository", "Error getting character by id", e)
             return Resource.Failure
         }
     }

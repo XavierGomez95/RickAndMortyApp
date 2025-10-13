@@ -31,6 +31,7 @@ fun MainNavigationWrapper (
         }
         composable<MainScreen.EpisodeScreen> {
             EpisodeScreen(
+                navController = mainNavHost,
                 modifier = modifier
             )
         }

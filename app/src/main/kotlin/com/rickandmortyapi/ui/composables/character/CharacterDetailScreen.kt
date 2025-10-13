@@ -30,7 +30,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -51,14 +50,14 @@ fun CharacterDetailScreen(
     characterId: Int,
     characterViewModel: CharacterViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(Unit) {
-        val currentState = characterViewModel.characterModelStateFlow.value
+    LaunchedEffect(characterId) {
+        val currentState = characterViewModel.singleCharacterStateFlow.value
         if (currentState is Resource.Init) {
-            characterViewModel.fetchCharacters()
+            characterViewModel.getCharacterById(characterId)
         }
     }
 
-    val characterResource = characterViewModel.characterModelStateFlow.collectAsState().value
+    val characterResource = characterViewModel.singleCharacterStateFlow.collectAsState().value
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -66,8 +65,8 @@ fun CharacterDetailScreen(
         when (characterResource) {
             Resource.Failure -> FailureMessage(messageError = stringResource(R.string.single_character_failure))
             is Resource.Success -> {
-                val character = characterResource.data.find { it.id == characterId }
-                val painter = rememberAsyncImagePainter(model = character?.image)
+                val character = characterResource.data
+                val painter = rememberAsyncImagePainter(model = character.image)
                 Column(
                     modifier = Modifier
                         .verticalScroll(
@@ -99,7 +98,7 @@ fun CharacterDetailScreen(
                                 .align(Alignment.CenterHorizontally)
                         ) {
                             Text(
-                                text = "${character?.name}",
+                                text = character.name,
                                 style = TextStyle(
                                     fontSize = 24.sp,
                                     fontWeight = FontWeight.Bold,
@@ -118,7 +117,7 @@ fun CharacterDetailScreen(
                         ) {
                             Text(
                                 text = "Status:",
-                                color = CharacterStatus.getColor(character?.status),
+                                color = CharacterStatus.getColor(character.status),
                                 fontSize = 16.sp,
                                 modifier = Modifier.weight(1f)
                             )
@@ -128,14 +127,14 @@ fun CharacterDetailScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = "${character?.status}",
-                                    color = CharacterStatus.getColor(character?.status),
+                                    text = character.status,
+                                    color = CharacterStatus.getColor(character.status),
                                     fontSize = 16.sp
                                 )
                                 Icon(
                                     imageVector = Icons.Sharp.Circle,
                                     contentDescription = "Circle",
-                                    tint = CharacterStatus.getColor(character?.status),
+                                    tint = CharacterStatus.getColor(character.status),
                                     modifier = Modifier
                                         .padding(start = 5.dp)
                                         .size(10.dp)
@@ -164,7 +163,7 @@ fun CharacterDetailScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = "${character?.gender}",
+                                    text = character.gender,
                                     fontSize = 16.sp,
                                 )
                             }
@@ -191,7 +190,7 @@ fun CharacterDetailScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = "${character?.species}",
+                                    text = character.species,
                                     fontSize = 16.sp,
                                 )
                             }
@@ -199,7 +198,7 @@ fun CharacterDetailScreen(
 
                         Spacer(Modifier.padding(4.dp))
 
-                        Row(
+                        /*Row(
                             modifier = Modifier
                                 .width(300.dp)
                                 .align(Alignment.CenterHorizontally),
@@ -253,7 +252,7 @@ fun CharacterDetailScreen(
                                     overflow = TextOverflow.Visible,
                                 )
                             }
-                        }
+                        }*/
                     }
                 }
             }

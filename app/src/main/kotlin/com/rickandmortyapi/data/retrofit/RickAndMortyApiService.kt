@@ -17,7 +17,7 @@ interface RickAndMortyApiService {
 
     @GET("character/{id}") // Relative path
     suspend fun getCharacterById(@Path("id") id: Int):
-            List<CharacterModel>
+            CharacterModel
 
     @GET("character/{ids}")
     suspend fun getCharactersByIds(@Path("ids") ids: String):

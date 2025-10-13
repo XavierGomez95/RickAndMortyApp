@@ -25,26 +25,13 @@ class CharacterViewModel @Inject constructor(
         }
     }
 
-    fun getCharacterById(id: Int): Resource<CharacterModel> {
-        val currentState = characterModelStateFlow.value
+    private val _singleCharacterStateFlow = MutableStateFlow<Resource<CharacterModel>>(Resource.Init)
+    val singleCharacterStateFlow: StateFlow<Resource<CharacterModel>> = _singleCharacterStateFlow
 
-        // Si el estado aún es Init, lanza la carga y devuelve Loading
-        if (currentState is Resource.Init) {
-            fetchCharacters()
-            return Resource.Loading
-        }
-
-        return when (currentState) {
-            is Resource.Success -> {
-                val character = currentState.data.find { it.id == id }
-                if (character != null) {
-                    Resource.Success(character)
-                } else {
-                    Resource.Failure
-                }
-            }
-            is Resource.Failure -> Resource.Failure
-            else -> Resource.Loading
+    fun getCharacterById(id: Int) {
+        viewModelScope.launch {
+            _singleCharacterStateFlow.value = Resource.Loading
+            _singleCharacterStateFlow.value = characterRepositoryInterface.getCharacterById(id)
         }
     }
 }
