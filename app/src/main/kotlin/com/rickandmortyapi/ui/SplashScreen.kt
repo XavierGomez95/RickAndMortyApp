@@ -45,7 +45,9 @@ fun SplashScreen(navController: NavController) {
             startAnimation = true
             delay(1500)
 
-            navController.navigate(MainNavigation)
+            navController.navigate(MainNavigation) {
+                popUpTo(Splash) { inclusive = true }
+            }
         }
 
         Box(

@@ -5,4 +5,5 @@ import com.rickandmortyapi.data.utils.Resource
 
 interface EpisodeRepositoryInterface {
     suspend fun retrieveAllEpisodes(): Resource<List<EpisodeModel>>
+    suspend fun getEpisodeById(id: Int): Resource<EpisodeModel>
 }

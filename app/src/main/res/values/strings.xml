@@ -7,7 +7,8 @@
     <string name="characters_failure">Error while loading characters</string>
     <string name="single_character_failure">Error while loading the character data</string>
 
-    <string name="search_bar_placeholder">Search by name</string>
+    <string name="search_bar_placeholder__characters">Search by character name</string>
+    <string name="search_bar_placeholder__episodes">Search by episode name</string>
     <string name="search_bar_close_description">Close icon</string>
 
     <string name="episodes_failure">Error while loading episode</string>

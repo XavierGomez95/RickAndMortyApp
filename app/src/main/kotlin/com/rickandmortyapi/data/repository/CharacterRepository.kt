@@ -18,6 +18,7 @@ class CharacterRepository @Inject constructor(
 ) : CharacterRepositoryInterface {
     override suspend fun retrieveAllCharacters(): Resource<List<CharacterModel>> {
         try {
+            // TODO: Optimize this with room and characterDao.getCharacters()
             val allCharacterData = mutableListOf<CharacterModel>()
 
             val firstPage = 1
@@ -38,7 +39,7 @@ class CharacterRepository @Inject constructor(
     }
 
 
-    fun getCharacters(): List<CharacterEntity> = characterDao.getCharacter()
+    fun getCharacters(): List<CharacterEntity> = characterDao.getCharacters()
 
     override suspend fun getCharacterById(id: Int): Resource<CharacterModel> {
         try {

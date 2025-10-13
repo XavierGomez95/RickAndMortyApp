@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.rickandmortyapi.data.database.AppDatabase
 import com.rickandmortyapi.data.database.dao.CharacterDao
+import com.rickandmortyapi.data.database.dao.EpisodeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,11 +21,17 @@ object DatabaseModule {
             context = context.applicationContext,
             klass = AppDatabase::class.java,
             name = "app_database"
-        ).build()
+        ).fallbackToDestructiveMigration(true) // function without argument is deprecated
+            .build()
     }
 
     @Provides
     fun provideCharacterDao(appDatabase: AppDatabase): CharacterDao {
         return appDatabase.characterDao()
+    }
+
+    @Provides
+    fun provideEpisodeDao(appDatabase: AppDatabase): EpisodeDao {
+        return appDatabase.episodeDao()
     }
 }

@@ -9,9 +9,10 @@ import androidx.navigation.toRoute
 import com.rickandmortyapi.navigation.MainScreen
 import com.rickandmortyapi.ui.composables.character.CharacterDetailNav
 import com.rickandmortyapi.ui.composables.character.CharacterDetailScreen
+import com.rickandmortyapi.ui.composables.episode.EpisodeDetailNav
+import com.rickandmortyapi.ui.composables.episode.EpisodeDetailScreen
 import com.rickandmortyapi.ui.composables.main_screens.CharacterScreen
 import com.rickandmortyapi.ui.composables.main_screens.EpisodeScreen
-import com.rickandmortyapi.ui.composables.main_screens.LocationScreen
 
 @Composable
 fun MainNavigationWrapper (
@@ -35,8 +36,10 @@ fun MainNavigationWrapper (
                 modifier = modifier
             )
         }
-        composable<MainScreen.LocationScreen> {
-            LocationScreen()
+
+        composable<EpisodeDetailNav> { backStackEntry ->
+            val episodeDetail: EpisodeDetailNav = backStackEntry.toRoute()
+            EpisodeDetailScreen(episodeId = episodeDetail.id)
         }
 
         composable<CharacterDetailNav> { backStackEntry ->

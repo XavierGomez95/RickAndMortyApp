@@ -3,7 +3,6 @@ package com.rickandmortyapi.data.retrofit
 
 import com.rickandmortyapi.data.model.CharacterModel
 import com.rickandmortyapi.data.model.EpisodeModel
-import com.rickandmortyapi.data.model.LocationModel
 import com.rickandmortyapi.data.model.repository.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -27,7 +26,7 @@ interface RickAndMortyApiService {
     suspend fun getEpisodeBatch(@Query("page") page: Int):
             ApiResponse<EpisodeModel>
 
-    @GET("location") // Relative path
-    suspend fun getLocationBatch(@Query("page") page: Int):
-            ApiResponse<LocationModel>
+    @GET("episode/{id}") // Relative path
+    suspend fun getEpisodeById(@Path("id") id: Int):
+            EpisodeModel
 }

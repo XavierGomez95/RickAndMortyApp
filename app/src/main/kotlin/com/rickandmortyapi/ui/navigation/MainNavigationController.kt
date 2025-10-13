@@ -19,7 +19,7 @@ object MainNavigation
 
 @Composable
 fun MainNavigationController() {
-    val screens = listOf(MainScreen.LocationScreen, MainScreen.CharacterScreen, MainScreen.EpisodeScreen)
+    val screens = listOf(MainScreen.CharacterScreen, MainScreen.EpisodeScreen)
 
     val mainNavHost = rememberNavController()
 

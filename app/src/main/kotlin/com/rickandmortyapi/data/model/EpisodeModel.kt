@@ -1,6 +1,6 @@
 package com.rickandmortyapi.data.model
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 
@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class EpisodeModel (
     val id: Int,
     val name: String = "",
-    @SerialName("air_date")
+    @SerializedName("air_date")
     val airDate: String = "",
     val episode: String = "",
     val characters: List<String> = emptyList(),

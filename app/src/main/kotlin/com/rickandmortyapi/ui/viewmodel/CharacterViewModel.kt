@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(
-    private val characterRepositoryInterface: CharacterRepositoryInterface
+    private val characterRepository: CharacterRepositoryInterface
 ) : ViewModel() {
     private val _characterModelMutableStateFlow = MutableStateFlow<Resource<List<CharacterModel>>>(Resource.Init)
     val characterModelStateFlow: StateFlow<Resource<List<CharacterModel>>> = _characterModelMutableStateFlow
@@ -21,7 +21,7 @@ class CharacterViewModel @Inject constructor(
     fun fetchCharacters() {
         viewModelScope.launch {
             _characterModelMutableStateFlow.value = Resource.Loading
-            _characterModelMutableStateFlow.value = characterRepositoryInterface.retrieveAllCharacters()
+            _characterModelMutableStateFlow.value = characterRepository.retrieveAllCharacters()
         }
     }
 
@@ -31,7 +31,7 @@ class CharacterViewModel @Inject constructor(
     fun getCharacterById(id: Int) {
         viewModelScope.launch {
             _singleCharacterStateFlow.value = Resource.Loading
-            _singleCharacterStateFlow.value = characterRepositoryInterface.getCharacterById(id)
+            _singleCharacterStateFlow.value = characterRepository.getCharacterById(id)
         }
     }
 }
