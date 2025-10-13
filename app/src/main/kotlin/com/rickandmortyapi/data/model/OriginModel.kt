@@ -2,9 +2,8 @@ package com.rickandmortyapi.data.model
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
-data class Episode (
+data class OriginModel(
     val name: String = "",
-    val image: String = ""
+    val url: String = ""
 )

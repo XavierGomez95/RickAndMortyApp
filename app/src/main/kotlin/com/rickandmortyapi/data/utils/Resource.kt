@@ -2,7 +2,7 @@ package com.rickandmortyapi.data.utils
 
 sealed class Resource<out R> {
     data class Success<out R>(
-        val result: R
+        val data: R
     ): Resource<R>()
 
     // Singleton

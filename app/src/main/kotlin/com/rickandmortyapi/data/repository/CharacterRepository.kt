@@ -1,49 +1,50 @@
 package com.rickandmortyapi.data.repository
 
-import com.rickandmortyapi.data.model.Character
+import com.rickandmortyapi.data.model.CharacterModel
 import com.rickandmortyapi.data.repository.interfaces.CharacterRepositoryInterface
 import com.rickandmortyapi.data.retrofit.RickAndMortyApiService
 import com.rickandmortyapi.data.utils.Resource
+import javax.inject.Inject
 
-class CharacterRepository (
+
+class CharacterRepository @Inject constructor(
     private val apiService: RickAndMortyApiService
 ) : CharacterRepositoryInterface {
-    override suspend fun retrieveAllCharacters(): Resource<List<Character>> {
+    override suspend fun retrieveAllCharacters(): Resource<List<CharacterModel>> {
         try {
-            val allCharacters = mutableListOf<Character>()
+            val allCharacterData = mutableListOf<CharacterModel>()
 
             val firstPage = 1
             val firstCharacterBatch = apiService.getCharacterBatch(firstPage)
-            allCharacters.addAll(firstCharacterBatch.results)
+            allCharacterData.addAll(firstCharacterBatch.results)
 
             val totalPages = firstCharacterBatch.info.pages
             for (currentPage in 2 .. totalPages) {
                 val charactersBatch = apiService.getCharacterBatch(currentPage)
-                allCharacters.addAll(charactersBatch.results)
+                allCharacterData.addAll(charactersBatch.results)
             }
 
-            return Resource.Success(allCharacters)
+            return Resource.Success(allCharacterData)
         } catch (e: Exception) {
             e.printStackTrace()
             return Resource.Failure
         }
     }
 
-    override suspend fun retrieveCharactersById(intArray: IntArray): Resource<List<Character>> {
+    override suspend fun retrieveCharactersById(intArray: IntArray): Resource<List<CharacterModel>> {
         try {
-            val specifiedCharacters = mutableListOf<Character>()
+            val specifiedCharacterData = mutableListOf<CharacterModel>()
 
             val totalCharacters = intArray.size
             for (index in 0 until totalCharacters) {
                 val currentCharacter = apiService.getCharacterById(intArray[index])
-                specifiedCharacters.addAll(currentCharacter)
+                specifiedCharacterData.addAll(currentCharacter)
             }
 
-            return Resource.Success(specifiedCharacters)
+            return Resource.Success(specifiedCharacterData)
         } catch (e: Exception) {
             e.stackTrace
             return Resource.Failure
         }
-
     }
 }

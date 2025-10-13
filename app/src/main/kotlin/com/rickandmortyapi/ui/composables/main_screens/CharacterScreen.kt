@@ -1,44 +1,64 @@
 package com.rickandmortyapi.ui.composables.main_screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.rickandmortyapi.data.model.Character
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.rickandmortyapi.R
+import com.rickandmortyapi.data.utils.Resource
+import com.rickandmortyapi.ui.composables.character.CharacterDetailNav
+import com.rickandmortyapi.ui.composables.FailureMessage
+import com.rickandmortyapi.ui.composables.LoadingSpinner
+import com.rickandmortyapi.ui.composables.generic_list_container.SearchListContainer
+import com.rickandmortyapi.ui.viewmodel.CharacterViewModel
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun CharacterScreen (
-    modifier: Modifier
+    navController: NavController,
+    modifier: Modifier,
+    characterViewModel: CharacterViewModel = hiltViewModel()
 ) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        val fakeList = mutableListOf(
-            Character("Rick Sanchez", "https://rick.com", "Alive", "Male", "Human"),
-            Character("Morty Smith", "https://morty.com", "Alive", "Male", "Human"),
-            Character("Summer Smith", "https://summer.com", "Alive", "Female", "Human"),
-            Character("Birdperson", "https://birdperson.com", "Dead", "Male", "Bird-Person")
-        )
+    val charactersResource = characterViewModel.characterModelStateFlow.collectAsState().value
 
-        Column(
-            modifier = modifier
-        ) {
-            fakeList.forEach { character ->
-                Text(
-                    text = "Name: ${character.name} \\" +
-                            "Status: ${character.status} \\" +
-                            "Specie: ${character.species}",
-                    modifier = Modifier.padding(vertical = 4.dp)
-                )
+    var searchBar by remember { mutableStateOf("") }
+    var isSearchBarActive by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        if (charactersResource is Resource.Init) {
+            characterViewModel.fetchCharacters()
+        }
+    }
+
+    when (charactersResource) {
+        is Resource.Init -> Unit
+        is Resource.Failure -> FailureMessage(messageError = stringResource(R.string.characters_failure))
+        is Resource.Loading -> LoadingSpinner()
+        is Resource.Success -> {
+            val allCharacters = charactersResource.data
+            val filteredCharacters = allCharacters.filter { currentCharacter ->
+                (searchBar.isBlank() || currentCharacter.name.startsWith(searchBar, ignoreCase = true))
             }
+
+            SearchListContainer(
+                modifier = modifier,
+                query = searchBar,
+                onQueryChange = { searchBar = it},
+                isActive = isSearchBarActive,
+                onActiveChange = { isSearchBarActive = it},
+                list = filteredCharacters,
+                onItemClick = { selectedItem ->
+                    navController.navigate(CharacterDetailNav(selectedItem.id))
+                }
+            )
         }
     }
 }

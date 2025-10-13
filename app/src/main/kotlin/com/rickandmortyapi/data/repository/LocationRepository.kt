@@ -1,6 +1,6 @@
 package com.rickandmortyapi.data.repository
 
-import com.rickandmortyapi.data.model.Location
+import com.rickandmortyapi.data.model.LocationModel
 import com.rickandmortyapi.data.repository.interfaces.LocationRepositoryInterface
 import com.rickandmortyapi.data.retrofit.RickAndMortyApiService
 import com.rickandmortyapi.data.utils.Resource
@@ -8,21 +8,21 @@ import com.rickandmortyapi.data.utils.Resource
 class LocationRepository (
     private val apiService: RickAndMortyApiService
 ) : LocationRepositoryInterface {
-    override suspend fun retrieveAllLocations(): Resource<List<Location>> {
+    override suspend fun retrieveAllLocations(): Resource<List<LocationModel>> {
         try {
-            val allLocations = mutableListOf<Location>()
+            val allLocationData = mutableListOf<LocationModel>()
             val firstPage = 1
 
             val firstLocationBatch = apiService.getLocationBatch(firstPage)
-            allLocations.addAll(firstLocationBatch.results)
+            allLocationData.addAll(firstLocationBatch.results)
 
             val totalPages = firstLocationBatch.info.pages
             for (currentPage in 2 .. totalPages) {
                 val locationsBatch = apiService.getLocationBatch(currentPage)
-                allLocations.addAll(locationsBatch.results)
+                allLocationData.addAll(locationsBatch.results)
             }
 
-            return Resource.Success(allLocations)
+            return Resource.Success(allLocationData)
         } catch (e: Exception) {
             e.printStackTrace()
             return Resource.Failure
