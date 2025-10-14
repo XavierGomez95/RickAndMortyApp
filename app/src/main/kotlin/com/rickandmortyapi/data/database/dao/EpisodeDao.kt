@@ -8,10 +8,10 @@ import com.rickandmortyapi.data.database.entities.EpisodeEntity
 
 @Dao
 interface EpisodeDao {
-    @Query("SELECT * FROM episode_table")
+    @Query("SELECT id, name, airDate, episode FROM episode_table")
     fun getEpisodes(): List<EpisodeEntity>
 
-    @Query("SELECT * FROM episode_table WHERE id = :id")
+    @Query("SELECT id, name, airDate, episode FROM episode_table WHERE id = :id")
     fun getEpisodeById(id: Int): EpisodeEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,5 +21,5 @@ interface EpisodeDao {
     suspend fun insertEpisode(episode: EpisodeEntity)
 
     @Query("DELETE FROM episode_table")
-    suspend fun clearAll()
+    suspend fun clearAllEpisodes()
 }

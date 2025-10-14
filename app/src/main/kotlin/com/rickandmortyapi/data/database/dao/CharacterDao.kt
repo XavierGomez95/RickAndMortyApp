@@ -8,7 +8,7 @@ import com.rickandmortyapi.data.database.entities.CharacterEntity
 
 @Dao
 interface CharacterDao {
-    @Query("SELECT id, name, status, species, image, gender FROM character_table")
+    @Query("SELECT * FROM character_table")
     fun getCharacters(): List<CharacterEntity>
 
     @Query("SELECT id, name, status, species, image, gender FROM character_table WHERE id = :id")
@@ -21,5 +21,5 @@ interface CharacterDao {
     suspend fun insertCharacter(character: CharacterEntity)
 
     @Query("DELETE FROM character_table")
-    suspend fun clearAll()
+    suspend fun clearAllCharacters()
 }

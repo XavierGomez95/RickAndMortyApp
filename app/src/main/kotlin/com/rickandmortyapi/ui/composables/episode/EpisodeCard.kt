@@ -4,10 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -49,19 +47,10 @@ fun EpisodeCard (
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = episode.episode,
-                    style = TextStyle(
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
                     text = episode.name,
                     style = TextStyle(
                         fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 )
             }

@@ -34,8 +34,6 @@ fun episodeEntityToModel(entity: EpisodeEntity): EpisodeModel {
         name = entity.name,
         airDate = entity.airDate,
         episode = entity.episode,
-        url = entity.url,
-        created = entity.created,
     )
 }
 

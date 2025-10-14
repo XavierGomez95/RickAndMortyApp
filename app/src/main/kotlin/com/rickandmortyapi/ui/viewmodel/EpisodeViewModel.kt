@@ -50,7 +50,6 @@ class EpisodeViewModel @Inject constructor(
 
                 _singleEpisode.value = Resource.Success(uiReadyEpisode)
             } else {
-                println("❌ Episode load failed -> $episode")
                 _singleEpisode.value = episode
             }
         }
