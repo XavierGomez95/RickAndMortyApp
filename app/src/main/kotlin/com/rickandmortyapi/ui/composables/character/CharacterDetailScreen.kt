@@ -114,7 +114,7 @@ fun CharacterDetailScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Status:",
+                                text = stringResource(R.string.character_detail__status),
                                 color = CharacterStatus.getColor(character.status),
                                 fontSize = 16.sp,
                                 modifier = Modifier.weight(1f)
@@ -150,7 +150,7 @@ fun CharacterDetailScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Gender:",
+                                text = stringResource(R.string.character_detail__gender),
                                 fontSize = 16.sp,
                                 modifier = Modifier.weight(1f)
                             )
@@ -177,7 +177,7 @@ fun CharacterDetailScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Species:",
+                                text = stringResource(R.string.character_detail__species),
                                 fontSize = 16.sp,
                                 modifier = Modifier.weight(1f)
                             )
@@ -193,64 +193,6 @@ fun CharacterDetailScreen(
                                 )
                             }
                         }
-
-                        Spacer(Modifier.padding(4.dp))
-
-                        /*Row(
-                            modifier = Modifier
-                                .width(300.dp)
-                                .align(Alignment.CenterHorizontally),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Origin:",
-                                fontSize = 16.sp,
-                                modifier = Modifier.weight(1f)
-                            )
-
-                            Row (
-                                modifier = Modifier.weight(1.5f),
-                                horizontalArrangement = Arrangement.End,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = character?.origin?.name ?: "Unknown",
-                                    fontSize = 16.sp,
-                                    softWrap = true,
-                                    maxLines = 2, // TODO: Constants
-                                    overflow = TextOverflow.Visible,
-                                )
-                            }
-                        }
-
-                        Spacer(Modifier.padding(4.dp))
-
-                        Row(
-                            modifier = Modifier
-                                .width(300.dp)
-                                .align(Alignment.CenterHorizontally),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Location:",
-                                fontSize = 16.sp,
-                                modifier = Modifier.weight(1f)
-                            )
-
-                            Row (
-                                modifier = Modifier.weight(1.5f),
-                                horizontalArrangement = Arrangement.End,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = character?.location?.name ?: "Unknown",
-                                    fontSize = 16.sp,
-                                    softWrap = true,
-                                    maxLines = 2, // TODO: Constants
-                                    overflow = TextOverflow.Visible,
-                                )
-                            }
-                        }*/
                     }
                 }
             }

@@ -1,5 +1,8 @@
 package com.rickandmortyapi.utils
 
+import com.rickandmortyapi.data.database.entities.EpisodeEntity
+import com.rickandmortyapi.data.model.EpisodeModel
+
 fun convertAirDateForUi(airDate: String): String {
     return airDate.split("T").getOrNull(0) ?: "Unknown"
 }
@@ -19,4 +22,25 @@ fun convertSeasonAndEpisodeForUi(code: String): Map<String, String> {
     partsMap["episode"] = uiEpisode
 
     return partsMap
+}
+
+fun episodeEntityToModel(entity: EpisodeEntity): EpisodeModel {
+    return EpisodeModel(
+        id = entity.id,
+        name = entity.name,
+        airDate = entity.airDate,
+        episode = entity.episode,
+    )
+}
+
+
+fun episodeModelToEntity(model: EpisodeModel): EpisodeEntity {
+    return EpisodeEntity(
+        id = model.id,
+        name = model.name,
+        airDate = model.airDate,
+        episode = model.episode,
+        url = model.url,
+        created = model.created,
+    )
 }

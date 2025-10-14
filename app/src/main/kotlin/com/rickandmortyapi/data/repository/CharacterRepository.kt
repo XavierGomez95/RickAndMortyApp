@@ -1,7 +1,6 @@
 package com.rickandmortyapi.data.repository
 
 import android.content.Context
-import android.util.Log
 import com.rickandmortyapi.data.database.dao.CharacterDao
 import com.rickandmortyapi.data.model.CharacterModel
 import com.rickandmortyapi.data.repository.interfaces.CharacterRepositoryInterface
@@ -23,7 +22,8 @@ class CharacterRepository @Inject constructor(
 ) : CharacterRepositoryInterface {
     override suspend fun retrieveAllCharacters(): Resource<List<CharacterModel>> {
         try {
-            val sharedPreferences = context.getSharedPreferences("character_sync_preferences", Context.MODE_PRIVATE)
+            val sharedPreferences = context
+                .getSharedPreferences("character_sync_preferences", Context.MODE_PRIVATE)
             val lastUpdateTime = sharedPreferences.getLong("last_update_time", 0L)
             val currentTime = System.currentTimeMillis()
 
@@ -31,7 +31,9 @@ class CharacterRepository @Inject constructor(
                 characterDao.getCharacters()
             }
 
-            if (currentTime - lastUpdateTime > Constants.DAY_TIME_MILLIS || localCharactersData.isEmpty()) {
+            if (currentTime - lastUpdateTime > Constants.DAY_TIME_MILLIS ||
+                localCharactersData.isEmpty()) {
+
                 val allCharacterData = mutableListOf<CharacterModel>()
                 val firstPage = 1
                 val firstCharacterBatch = apiService.getCharacterBatch(firstPage)
@@ -45,7 +47,9 @@ class CharacterRepository @Inject constructor(
 
                 withContext(Dispatchers.IO) { // Subprocess out of main thread
                     characterDao.clearAllCharacters()
-                    characterDao.insertCharacters(allCharacterData.map { characterModelToEntity(it) })
+                    characterDao.insertCharacters(allCharacterData.map {
+                        characterModelToEntity(it)
+                    })
                 }
 
                 return Resource.Success(allCharacterData)
@@ -76,7 +80,6 @@ class CharacterRepository @Inject constructor(
             return Resource.Success(characterFromApi)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("ÇÇÇÇ__CharacterRepository", "Error getting character by id", e)
             return Resource.Failure
         }
     }

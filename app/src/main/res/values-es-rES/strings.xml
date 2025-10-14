@@ -25,4 +25,13 @@
     <string name="episode_detail__date">Fecha de estreno:</string>
     <string name="episode_detail__season">Temporada:</string>
     <string name="episode_detail__episode">Cap\'itulo:</string>
+    <string name="episode_detail__image">Imagen </string>
+
+    <!-- Attribute description characters -->
+    <string name="character_detail__status">Estado:</string>
+    <string name="character_detail__gender">Genero:</string>
+    <string name="character_detail__species">Especie:</string>
+    <string name="character_detail__image">Especie:</string>
+
+    <string name="unknown">Desconocido</string>
 </resources>

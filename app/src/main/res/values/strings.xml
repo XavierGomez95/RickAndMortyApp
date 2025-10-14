@@ -20,8 +20,15 @@
     <string name="search_bar_placeholder__episodes">Search by episode name</string>
     <string name="search_bar_close_description">Close icon</string>
 
-    <!-- Description tittles episodes -->
+    <!-- Attribute description episodes -->
     <string name="episode_detail__date">Release date:</string>
     <string name="episode_detail__season">Season:</string>
     <string name="episode_detail__episode">Episode:</string>
+
+    <!-- Attribute description characters -->
+    <string name="character_detail__status">Status:</string>
+    <string name="character_detail__gender">Gender:</string>
+    <string name="character_detail__species">Species:</string>
+
+    <string name="unknown">Unknown</string>
 </resources>

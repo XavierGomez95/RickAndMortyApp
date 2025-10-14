@@ -93,7 +93,7 @@ fun EpisodeDetailScreen(
                                 horizontalArrangement = Arrangement.End
                             ) {
                                 Text(
-                                    text = episode.uiDate ?: "Unknown",
+                                    text = episode.uiDate ?: stringResource(R.string.unknown),
                                     fontSize = 16.sp
                                 )
                             }
@@ -118,7 +118,7 @@ fun EpisodeDetailScreen(
                                 horizontalArrangement = Arrangement.End
                             ) {
                                 Text(
-                                    text = episode.uiSeason ?: "Unknown",
+                                    text = episode.uiSeason ?: stringResource(R.string.unknown),
                                     fontSize = 16.sp
                                 )
                             }
@@ -143,7 +143,7 @@ fun EpisodeDetailScreen(
                                 horizontalArrangement = Arrangement.End
                             ) {
                                 Text(
-                                    text = episode.uiEpisode ?: "Unknown",
+                                    text = episode.uiEpisode ?: stringResource(R.string.unknown),
                                     fontSize = 16.sp
                                 )
                             }

@@ -1,7 +1,6 @@
 package com.rickandmortyapi.data.repository
 
 import android.content.Context
-import android.util.Log
 import com.rickandmortyapi.data.database.dao.EpisodeDao
 import com.rickandmortyapi.data.model.EpisodeModel
 import com.rickandmortyapi.data.repository.interfaces.EpisodeRepositoryInterface
@@ -24,7 +23,8 @@ class EpisodeRepository @Inject constructor (
 ) : EpisodeRepositoryInterface {
     override suspend fun retrieveAllEpisodes(): Resource<List<EpisodeModel>> {
         try {
-            val sharedPreferences = context.getSharedPreferences("episode_sync_preferences", Context.MODE_PRIVATE)
+            val sharedPreferences = context
+                .getSharedPreferences("episode_sync_preferences", Context.MODE_PRIVATE)
             val lastUpdateTime = sharedPreferences.getLong("last_update_time", 0L)
             val currentTime = System.currentTimeMillis()
 
@@ -32,7 +32,9 @@ class EpisodeRepository @Inject constructor (
                 episodeDao.getEpisodes()
             }
 
-            if (currentTime - lastUpdateTime > Constants.DAY_TIME_MILLIS || localEpisodesData.isEmpty()) {
+            if (currentTime - lastUpdateTime > Constants.DAY_TIME_MILLIS ||
+                localEpisodesData.isEmpty()) {
+
                 val allEpisodeData = mutableListOf<EpisodeModel>()
                 val firstPage = 1
                 val firstEpisodeBatch = apiService.getEpisodeBatch(firstPage)
@@ -46,7 +48,9 @@ class EpisodeRepository @Inject constructor (
 
                 withContext(Dispatchers.IO) { // Subprocess out of main thread
                     episodeDao.clearAllEpisodes()
-                    episodeDao.insertEpisodes(allEpisodeData.map { episodeModelToEntity(it) })
+                    episodeDao.insertEpisodes(allEpisodeData.map {
+                        episodeModelToEntity(it)
+                    })
                 }
 
                 sharedPreferences.edit { putLong("last_update_time", currentTime) }
@@ -80,7 +84,6 @@ class EpisodeRepository @Inject constructor (
             return Resource.Success(episodeFromApi)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("ÇÇÇÇ__EpisodeRepository", "Error getting episode by id", e) // TODO: DELETE
             return Resource.Failure
         }
     }

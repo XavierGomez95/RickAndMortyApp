@@ -77,29 +77,6 @@ fun EpisodeScreen (
                     }
                 }
             }
-
-            /*Column(
-                modifier = modifier
-                    .padding(12.dp)
-            ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(
-                            horizontal = 16.dp
-                        ),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    items(allEpisodes) { episode ->
-                        GenericCard(
-                            genericModel = episode,
-                            onClick = { selectedItem ->
-                                navController.navigate(EpisodeDetailNav(selectedItem.id))
-                            }
-                        )
-                    }
-                }
-            }*/
         }
 
     }
