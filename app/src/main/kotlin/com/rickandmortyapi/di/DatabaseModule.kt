@@ -14,13 +14,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
+    private const val DATABASE_NAME = "app_database"
     @Provides
     @Singleton
     fun provideDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(
             context = context.applicationContext,
             klass = AppDatabase::class.java,
-            name = "app_database"
+            name = DATABASE_NAME
         ).fallbackToDestructiveMigration(true) // function without argument is deprecated
             .build()
     }

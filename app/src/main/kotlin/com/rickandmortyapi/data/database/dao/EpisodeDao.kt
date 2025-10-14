@@ -2,6 +2,7 @@ package com.rickandmortyapi.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.rickandmortyapi.data.database.entities.EpisodeEntity
 
@@ -13,10 +14,10 @@ interface EpisodeDao {
     @Query("SELECT * FROM episode_table WHERE id = :id")
     fun getEpisodeById(id: Int): EpisodeEntity?
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEpisodes(episode: List<EpisodeEntity>)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEpisode(episode: EpisodeEntity)
 
     @Query("DELETE FROM episode_table")

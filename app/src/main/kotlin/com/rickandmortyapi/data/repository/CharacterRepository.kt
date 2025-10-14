@@ -1,12 +1,15 @@
 package com.rickandmortyapi.data.repository
 
+import android.content.Context
 import android.util.Log
 import com.rickandmortyapi.data.database.dao.CharacterDao
-import com.rickandmortyapi.data.database.entities.CharacterEntity
 import com.rickandmortyapi.data.model.CharacterModel
 import com.rickandmortyapi.data.repository.interfaces.CharacterRepositoryInterface
 import com.rickandmortyapi.data.retrofit.RickAndMortyApiService
 import com.rickandmortyapi.data.utils.Resource
+import com.rickandmortyapi.utils.characterEntityToModel
+import com.rickandmortyapi.utils.characterModelToEntity
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -14,11 +17,18 @@ import javax.inject.Inject
 
 class CharacterRepository @Inject constructor(
     private val apiService: RickAndMortyApiService,
-    private val characterDao: CharacterDao
+    private val characterDao: CharacterDao,
+    @ApplicationContext private val context: Context
 ) : CharacterRepositoryInterface {
     override suspend fun retrieveAllCharacters(): Resource<List<CharacterModel>> {
         try {
-            // TODO: Optimize this with room and characterDao.getCharacters()
+            val localCharactersData = withContext(Dispatchers.IO) {
+                characterDao.getCharacters()
+            }
+            if (localCharactersData.isNotEmpty()) {
+                return Resource.Success(localCharactersData.map { characterEntityToModel(it) })
+            }
+
             val allCharacterData = mutableListOf<CharacterModel>()
 
             val firstPage = 1
@@ -26,9 +36,13 @@ class CharacterRepository @Inject constructor(
             allCharacterData.addAll(firstCharacterBatch.results)
 
             val totalPages = firstCharacterBatch.info.pages
-            for (currentPage in 2 .. totalPages) {
+            for (currentPage in 2..totalPages) {
                 val charactersBatch = apiService.getCharacterBatch(currentPage)
                 allCharacterData.addAll(charactersBatch.results)
+            }
+
+            withContext(Dispatchers.IO) {
+                characterDao.insertCharacters(allCharacterData.map { characterModelToEntity(it) })
             }
 
             return Resource.Success(allCharacterData)
@@ -38,38 +52,18 @@ class CharacterRepository @Inject constructor(
         }
     }
 
-
-    fun getCharacters(): List<CharacterEntity> = characterDao.getCharacters()
-
     override suspend fun getCharacterById(id: Int): Resource<CharacterModel> {
         try {
             val localCharacterEntity = withContext(Dispatchers.IO) {
                 characterDao.getCharacterById(id)
             }
             if (localCharacterEntity != null) {
-                val localCharacter = CharacterModel(
-                    id = localCharacterEntity.id,
-                    name = localCharacterEntity.name,
-                    status = localCharacterEntity.status,
-                    species = localCharacterEntity.species,
-                    image = localCharacterEntity.image,
-                    gender = localCharacterEntity.gender
-                )
-                return Resource.Success(localCharacter)
+                return Resource.Success(characterEntityToModel(localCharacterEntity))
             }
 
             val characterFromApi = apiService.getCharacterById(id)
             withContext(Dispatchers.IO) {
-                characterDao.insertCharacter(
-                    CharacterEntity(
-                        id = characterFromApi.id,
-                        name = characterFromApi.name,
-                        status = characterFromApi.status,
-                        species = characterFromApi.species,
-                        image = characterFromApi.image,
-                        gender = characterFromApi.gender
-                    )
-                )
+                characterDao.insertCharacter(characterModelToEntity(characterFromApi))
             }
             return Resource.Success(characterFromApi)
         } catch (e: Exception) {

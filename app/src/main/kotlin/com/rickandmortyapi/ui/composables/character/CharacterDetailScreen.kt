@@ -60,7 +60,8 @@ fun CharacterDetailScreen(
     val characterResource = characterViewModel.singleCharacterStateFlow.collectAsState().value
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
         when (characterResource) {
             Resource.Failure -> FailureMessage(messageError = stringResource(R.string.single_character_failure))

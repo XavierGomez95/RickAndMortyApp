@@ -14,4 +14,9 @@ data class EpisodeModel (
     val characters: List<String> = emptyList(),
     val url: String = "",
     val created: String = "",
+
+    // Campos para la UI
+    val uiDate: String? = null,
+    val uiSeason: String? = null,
+    val uiEpisode: String? = null
 )

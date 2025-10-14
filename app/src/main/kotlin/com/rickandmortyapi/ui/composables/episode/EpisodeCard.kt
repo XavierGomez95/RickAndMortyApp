@@ -64,16 +64,6 @@ fun EpisodeCard (
                         fontSize = 16.sp,
                     )
                 )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "Air date: ${episode.airDate}",
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        color = Color.Gray
-                    )
-                )
             }
         }
     }

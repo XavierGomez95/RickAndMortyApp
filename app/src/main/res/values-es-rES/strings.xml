@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Info -->
     <string name="app_name">Ricky y Morty API</string>
+    <string name="content_description__logo">Rick y Morty logo</string>
+
+    <!-- Bottom Bar names -->
     <string name="bottom_bar__characters">Personajes</string>
     <string name="bottom_bar__episodes">Capítulos</string>
-    <string name="bottom_bar__locations">Lugares</string>
-    <string name="content_description__logo">Rick y Morty logo</string>
+
+    <!-- characters errors -->
     <string name="characters_failure">Error al cargar los personajes</string>
     <string name="single_character_failure">Error al cargar la informaci\'on del personaje</string>
 
+    <!-- episodes errors -->
+    <string name="episodes_failure">Error al cargar los episodios</string>
+    <string name="single_episode_failure">Error al cargar la informaci\'on del personaje</string>
 
+    <!-- Search Bar descriptions -->
     <string name="search_bar_placeholder__characters">Buscar por nombre de personaje</string>
     <string name="search_bar_placeholder__episodes">Buscar por nombre de episodio</string>
     <string name="search_bar_close_description">Icono de cerrar</string>
 
-    <string name="episodes_failure">Error al cargar los episodios</string>
+    <!-- Description tittles episodes -->
+    <string name="episode_detail__date">Fecha de estreno:</string>
+    <string name="episode_detail__season">Temporada:</string>
+    <string name="episode_detail__episode">Cap\'itulo:</string>
 </resources>
