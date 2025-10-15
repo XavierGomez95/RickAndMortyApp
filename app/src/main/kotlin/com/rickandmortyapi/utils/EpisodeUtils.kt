@@ -4,6 +4,7 @@ import com.rickandmortyapi.data.database.entities.EpisodeEntity
 import com.rickandmortyapi.data.model.EpisodeModel
 
 fun convertAirDateForUi(airDate: String): String {
+    if (airDate.isBlank()) return "Unknown"
     return airDate.split("T").getOrNull(0) ?: "Unknown"
 }
 

@@ -4,8 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 enum class CharacterStatus(val color: Color) {
     ALIVE(Color(0xFF269246)),
-    DEAD(Color(0xFFc14c64)),
-    UNKNOWN(Color(0xFFDDDDDD));
+    DEAD(Color(0xFFC14C64)),
+    UNKNOWN(Color(0xFF7A7A7A));
 
     // https://rickandmortyapi.com/documentation/#character-schema
     companion object{ // static equivalent in Java

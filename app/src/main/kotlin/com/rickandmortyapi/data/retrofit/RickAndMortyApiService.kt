@@ -18,10 +18,6 @@ interface RickAndMortyApiService {
     suspend fun getCharacterById(@Path("id") id: Int):
             CharacterModel
 
-    @GET("character/{ids}")
-    suspend fun getCharactersByIds(@Path("ids") ids: String):
-            List<CharacterModel>
-
     @GET("episode") // Relative path
     suspend fun getEpisodeBatch(@Query("page") page: Int):
             ApiResponse<EpisodeModel>
