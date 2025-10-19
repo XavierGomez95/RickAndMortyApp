@@ -18,6 +18,7 @@ espresso = "3.5.1"
 mockk = "1.13.10"
 coroutinesTest = "1.8.1"
 turbine = "1.0.0"
+mockwebserver = "4.12.0"
 
 # --- Persistence ---
 room = "2.8.2" # Stable Release
@@ -78,6 +79,7 @@ androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espres
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserver" }
 
 # --- Networking ---
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
