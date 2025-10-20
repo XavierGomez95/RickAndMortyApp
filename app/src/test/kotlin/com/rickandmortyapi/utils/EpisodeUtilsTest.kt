@@ -8,6 +8,11 @@ import org.junit.Test
 class EpisodeUtilsTest {
     // https://docs.junit.org/current/user-guide/#writing-tests-assertions-kotlin
 
+    // ------------------------------------------------------------------------
+    // TEST 1: Verifies that episodeEntityToModel() correctly maps all fields
+    // from an EpisodeEntity to an EpisodeModel. The URL and created fields
+    // should be reset to empty strings.
+    // ------------------------------------------------------------------------
     @Test
     fun `episodeEntityToModel should correctly map fields`() {
         val entity = EpisodeEntity(
@@ -29,6 +34,10 @@ class EpisodeUtilsTest {
         assertEquals(model.created, "")
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 2: Ensures that episodeModelToEntity() accurately maps all fields
+    // from an EpisodeModel to an EpisodeEntity, preserving all data values.
+    // ------------------------------------------------------------------------
     @Test
     fun `episodeModelToEntity should correctly map fields`() {
         val model = EpisodeModel(
@@ -57,6 +66,10 @@ class EpisodeUtilsTest {
         assertEquals("2017-11-10T12:56:33.798Z", entity.created)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 3: Validates that converting an entity to a model and back again
+    // preserves data integrity across both transformations.
+    // ------------------------------------------------------------------------
     @Test
     fun `entity to model and back should preserve data integrity`() {
         val originalEntity = EpisodeEntity(
@@ -82,24 +95,40 @@ class EpisodeUtilsTest {
         assertEquals("S01E03", convertedEntity.episode)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 4: Ensures that convertAirDateForUi() correctly extracts the date
+    // portion before the 'T' character.
+    // ------------------------------------------------------------------------
     @Test
     fun `convertAirDateForUi should return date before T`() {
         val result = convertAirDateForUi("2023-10-01T12:00:00Z")
         assertEquals("2023-10-01", result)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 5: Verifies that convertAirDateForUi() returns the original string
+    // unchanged when it does not contain a 'T' (invalid date format).
+    // ------------------------------------------------------------------------
     @Test
     fun `convertAirDateForUi should return Unknown if string is invalid`() {
         val result = convertAirDateForUi("invalid_date")
-        assertEquals("invalid_date", result) // There’s no 'T', so full string stays the same
+        assertEquals("invalid_date", result)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 6: Ensures that convertAirDateForUi() returns "Unknown"
+    // when given an empty string as input.
+    // ----------------------------------------------------------------------
     @Test
     fun `convertAirDateForUi should return Unknown if empty`() {
         val result = convertAirDateForUi("")
         assertEquals("Unknown", result)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 7: Validates that convertSeasonAndEpisodeForUi() correctly extracts
+    // season (03) and episode (07) numbers from a valid code (S03E07).
+    // ------------------------------------------------------------------------
     @Test
     fun `convertSeasonAndEpisodeForUi should extract season and episode correctly`() {
         val result = convertSeasonAndEpisodeForUi("S03E07")
@@ -107,6 +136,10 @@ class EpisodeUtilsTest {
         assertEquals("07", result["episode"])
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 8: Ensures that convertSeasonAndEpisodeForUi() handles malformed
+    // inputs gracefully by returning '?' for both season and episode.
+    // ------------------------------------------------------------------------
     @Test
     fun `convertSeasonAndEpisodeForUi should handle malformed input gracefully`() {
         val result = convertSeasonAndEpisodeForUi("E")
@@ -114,6 +147,10 @@ class EpisodeUtilsTest {
         assertEquals("?", result["episode"])
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 9: Confirms that convertSeasonAndEpisodeForUi() handles empty input
+    // safely and returns '?' for both season and episode values.
+    // ------------------------------------------------------------------------
     @Test
     fun `convertSeasonAndEpisodeForUi should handle empty string`() {
         val result = convertSeasonAndEpisodeForUi("")

@@ -1,10 +1,8 @@
 package com.rickandmortyapi.ui.viewmodel
 
-
 import com.rickandmortyapi.data.model.CharacterModel
 import com.rickandmortyapi.data.repository.interfaces.CharacterRepositoryInterface
 import com.rickandmortyapi.data.utils.Resource
-import io.mockk.coEvery
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -24,12 +22,13 @@ class CharacterViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
     private val testScope = TestScope(testDispatcher)
 
-    private lateinit var viewModel: CharacterViewModel
-    private lateinit var fakeRepository: FakeCharacterRepository
+    private lateinit var viewModel: CharacterViewModel // Late initialization
+    private lateinit var fakeRepository: FakeCharacterRepository // Late initialization
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
+        fakeRepository = FakeCharacterRepository()
         viewModel = CharacterViewModel(fakeRepository)
     }
 
@@ -38,11 +37,12 @@ class CharacterViewModelTest {
         Dispatchers.resetMain()
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 1: Verifies that fetchCharacters() emits a Resource.Success state
+    // when FakeCharacterRepository returns data successfully.
+    // ------------------------------------------------------------------------
     @Test
     fun `fetchCharacters should emit Success with FakeRepository`() = runTest {
-        val fakeRepository = FakeCharacterRepository()
-        val viewModel = CharacterViewModel(fakeRepository)
-
         viewModel.fetchCharacters()
         advanceUntilIdle()
 
@@ -51,9 +51,13 @@ class CharacterViewModelTest {
         assertEquals(2, (result as Resource.Success).data.size)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 2: Ensures that fetchCharacters() emits a Resource.Failure state
+    // when FakeCharacterRepository is set to fail (shouldFail = true).
+    // ------------------------------------------------------------------------
     @Test
-    fun `fetchCharacters should emit Failure on error`() = testScope.runTest {
-        coEvery { fakeRepository.retrieveAllCharacters() } returns Resource.Failure
+    fun `fetchCharacters should emit Failure on error`() = testScope.runTest { // controlled coroutine part 1
+        fakeRepository.shouldFail = true
 
         viewModel.fetchCharacters()
         advanceUntilIdle()
@@ -62,11 +66,12 @@ class CharacterViewModelTest {
         assertTrue(result is Resource.Failure)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 3: Validates that getCharacterById(id)  Resource.Success with
+    // the correct CharacterModel data.
+    // ------------------------------------------------------------------------
     @Test
-    fun `getCharacterById should emit Loading then Success`() = testScope.runTest {
-        val fakeRepository = FakeCharacterRepository()
-        val viewModel = CharacterViewModel(fakeRepository)
-
+    fun `getCharacterById should emit Success`() = testScope.runTest { // controlled coroutine part 2
         viewModel.getCharacterById(1)
         advanceUntilIdle()
 
@@ -82,11 +87,12 @@ class CharacterViewModelTest {
         assertEquals("Human", data.species)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 4: Ensures that getCharacterById(id) emits a Resource.Failure
+    // when the requested character ID is not found in the repository.
+    // ------------------------------------------------------------------------
     @Test
-    fun `getCharacterById should emit Failure when character not found`() = testScope.runTest {
-        val fakeRepository = FakeCharacterRepository()
-        val viewModel = CharacterViewModel(fakeRepository)
-
+    fun `getCharacterById should emit Failure when character not found`() = testScope.runTest { // controlled coroutine part 3
         viewModel.getCharacterById(999)
         advanceUntilIdle()
 
@@ -96,10 +102,24 @@ class CharacterViewModelTest {
 }
 
 class FakeCharacterRepository : CharacterRepositoryInterface {
-    val shouldFail = false
+    var shouldFail = false
     val fakeCharacters = listOf(
-        CharacterModel(1, "Rick Sanchez", "https://rickandmortyapi.com/api/character/avatar/1.jpeg", "Alive", "Male", "Human"),
-        CharacterModel(2, "Morty Smith", "https://rickandmortyapi.com/api/character/avatar/2.jpeg", "Alive", "Male", "Human")
+        CharacterModel(
+            id = 1,
+            name = "Rick Sanchez",
+            image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+            status = "Alive",
+            gender = "Male",
+            species = "Human"
+        ),
+        CharacterModel(
+            id = 2,
+            name = "Morty Smith",
+            image = "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+            status = "Alive",
+            gender = "Male",
+            species = "Human"
+        )
     )
 
     override suspend fun retrieveAllCharacters(): Resource<List<CharacterModel>> {

@@ -6,6 +6,10 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class CharacterUtilsTest {
+    // ------------------------------------------------------------------------
+    // TEST 1: Verifies that characterEntityToModel() correctly maps all fields
+    // from a CharacterEntity to a CharacterModel with matching values.
+    // ------------------------------------------------------------------------
     @Test
     fun `characterEntityToModel should correctly map fields`() {
         val entity = CharacterEntity(
@@ -34,6 +38,10 @@ class CharacterUtilsTest {
         assertEquals("Male", model.gender)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 2: Ensures that characterModelToEntity() accurately maps all fields
+    // from a CharacterModel to a CharacterEntity, maintaining data consistency.
+    // ------------------------------------------------------------------------
     @Test
     fun `characterModelToEntity should correctly map fields`() {
         val model = CharacterModel(
@@ -64,6 +72,10 @@ class CharacterUtilsTest {
         assertEquals("Male", entity.gender)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 3: Validates that converting a CharacterEntity to a CharacterModel
+    // and back again preserves data integrity across both transformations.
+    // ------------------------------------------------------------------------
     @Test
     fun `entity to model and back should preserve data integrity`() {
         val originalEntity = CharacterEntity(
@@ -81,6 +93,10 @@ class CharacterUtilsTest {
         assertEquals(originalEntity, convertedEntity)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 4: Ensures that converting a CharacterModel to a CharacterEntity
+    // and back again preserves data integrity across both transformations.
+    // ------------------------------------------------------------------------
     @Test
     fun `model to entity and back should preserve data integrity`() {
         val originalModel = CharacterModel(

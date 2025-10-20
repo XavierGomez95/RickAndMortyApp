@@ -7,12 +7,21 @@ import org.junit.Test
 
 class ResourceTest {
     // https://docs.junit.org/current/user-guide/#writing-tests-assertions-kotlin
+
+    // ------------------------------------------------------------------------
+    // TEST 1: Verifies that a Resource.Success object created with a String
+    // correctly stores and exposes its data value.
+    // ------------------------------------------------------------------------
     @Test
     fun `Success should contain correct data with String`() {
         val success1 = Resource.Success(data = "Rick Sanchez")
         assertEquals("Rick Sanchez", success1.data)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 2: Ensures that Resource.Success correctly holds and returns
+    // a list of CharacterModel objects with accurate field values.
+    // ------------------------------------------------------------------------
     @Test
     fun `Success should contain correct data with list of CharacterModel`() {
         val characters = listOf(
@@ -45,6 +54,10 @@ class ResourceTest {
 
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 3: Validates that Resource.Success correctly stores and exposes
+    // a list of EpisodeModel objects with accurate name, airDate, and episode.
+    // ------------------------------------------------------------------------
     @Test
     fun `Success should contain correct data with list of EpisodeModel`() {
         val episodes = listOf(
@@ -74,6 +87,10 @@ class ResourceTest {
         assertEquals(2, resource.data.size)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 4: Ensures that Resource.Failure is implemented as a singleton.
+    // Multiple references should point to the same instance.
+    // ------------------------------------------------------------------------
     @Test
     fun `Failure should be singleton`() {
         val firstSingleton = Resource.Failure
@@ -81,6 +98,10 @@ class ResourceTest {
         assertSame(firstSingleton, secondSingleton) // Same instance
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 5: Ensures that Resource.Loading is implemented as a singleton.
+    // Multiple references should return the exact same instance.
+    // ------------------------------------------------------------------------
     @Test
     fun `Loading should be singleton`() {
         val firstSingleton = Resource.Loading
@@ -88,6 +109,10 @@ class ResourceTest {
         assertSame(firstSingleton, secondSingleton)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 6: Ensures that Resource.Init is implemented as a singleton.
+    // Multiple references should return the same object instance.
+    // ------------------------------------------------------------------------
     @Test
     fun `Init should be singleton`() {
         val firstSingleton = Resource.Init

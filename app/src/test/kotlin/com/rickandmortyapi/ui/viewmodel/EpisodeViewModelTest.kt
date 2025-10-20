@@ -37,6 +37,10 @@ class EpisodeViewModelTest {
         Dispatchers.resetMain()
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 1: Verifies that fetchEpisodes() emits a Resource.Success state
+    // when FakeEpisodeRepository returns data successfully.
+    // ------------------------------------------------------------------------
     @Test
     fun `fetchEpisodes should emit Loading then Success`() = testScope.runTest {
         viewModel.fetchEpisodes()
@@ -46,11 +50,19 @@ class EpisodeViewModelTest {
         assertTrue(result is Resource.Success)
 
         val data = (result as Resource.Success).data
+
+        val firstEpisode = data[0]
+        val secondEpisode = data[1]
+
         assertEquals(2, data.size)
-        assertEquals("Pilot", data[0].name)
-        assertEquals("Lawnmower Dog", data[1].name)
+        assertEquals("Pilot", firstEpisode.name)
+        assertEquals("Lawnmower Dog", secondEpisode.name)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 2: Ensures that fetchEpisodes() emits a Resource.Failure state
+    // when FakeEpisodeRepository is set to fail (shouldFail = true).
+    // ------------------------------------------------------------------------
     @Test
     fun `fetchEpisodes should emit Failure when repository fails`() = testScope.runTest {
         fakeRepository.shouldFail = true
@@ -62,6 +74,10 @@ class EpisodeViewModelTest {
         assertTrue(result is Resource.Failure)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 3: Validates that getEpisodeById(id) emits a Resource.Success state
+    // and that the returned UI model contains correctly formatted data.
+    // ------------------------------------------------------------------------
     @Test
     fun `getEpisodeById should emit formatted UI data when Success`() = testScope.runTest {
         viewModel.getEpisodeById(1)
@@ -76,6 +92,10 @@ class EpisodeViewModelTest {
         assertEquals("07", uiEpisode.uiEpisode)
     }
 
+    // ------------------------------------------------------------------------
+    // TEST 4: Ensures that getEpisodeById(id) emits a Resource.Failure state
+    // when the requested episode ID is not found in the repository.
+    // ------------------------------------------------------------------------
     @Test
     fun `getEpisodeById should emit Failure when episode not found`() = testScope.runTest {
         viewModel.getEpisodeById(999)
@@ -89,8 +109,18 @@ class EpisodeViewModelTest {
 class FakeEpisodeRepository : EpisodeRepositoryInterface {
     var shouldFail = false
     val fakeEpisodes = listOf(
-        EpisodeModel(1, "Pilot", "December 2, 2013", "S03E07"),
-        EpisodeModel(2, "Lawnmower Dog", "December 9, 2013", "S01E02")
+        EpisodeModel(
+            id = 1,
+            name = "Pilot",
+            airDate = "December 2, 2013",
+            episode = "S03E07"
+        ),
+        EpisodeModel(
+            id = 2,
+            name = "Lawnmower Dog",
+            airDate = "December 9, 2013",
+            episode = "S01E02"
+        )
     )
 
     override suspend fun retrieveAllEpisodes(): Resource<List<EpisodeModel>> {
