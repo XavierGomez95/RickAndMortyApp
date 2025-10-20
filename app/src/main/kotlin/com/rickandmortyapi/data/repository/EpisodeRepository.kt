@@ -54,8 +54,6 @@ class EpisodeRepository @Inject constructor (
                 }
 
                 sharedPreferences.edit { putLong("last_update_time", currentTime) }
-                Resource.Success(allEpisodeData)
-
                 return Resource.Success(allEpisodeData)
             } else {
                 val localModels = localEpisodesData.map { episodeEntityToModel(it) }

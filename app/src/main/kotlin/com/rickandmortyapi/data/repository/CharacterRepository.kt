@@ -13,6 +13,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import androidx.core.content.edit
 
 
 class CharacterRepository @Inject constructor(
@@ -51,6 +52,8 @@ class CharacterRepository @Inject constructor(
                         characterModelToEntity(it)
                     })
                 }
+
+                sharedPreferences.edit { putLong("last_update_time", currentTime) }
 
                 return Resource.Success(allCharacterData)
             } else {
