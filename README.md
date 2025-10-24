@@ -1,56 +1,59 @@
-# Android Developer Assignment: Rick and Morty API App
+# Rick and Morty Android App
 
-## Overview
+## 📱 Overview
 
-This assignment requires you to develop an Android application that fetches and displays data from the Rick and Morty
-API (https://rickandmortyapi.com/api/). The application will focus on showcasing characters from the series.
+This Android application displays a list of characters from the **Rick and Morty** universe, fetched from the public [Rick and Morty API](https://rickandmortyapi.com/api/).  
+The project is developed in **Kotlin** using **Jetpack Compose**, **Room**, **Hilt**, and the **MVVM** pattern, following a **Layered Architecture** to ensure clean, maintainable, and scalable code.
 
-## Problem Description
+---
 
-The primary task is to create an Android application that retrieves character data from the following API endpoint:
+## 🚀 Features
 
-https://rickandmortyapi.com/api/character
+### 🔹 Character List
+- Displays a list of characters retrieved from the API.  
+- Each item shows the **image**, **name**, and **status** (alive, dead, unknown) of the character.  
 
-The application should display a list of characters and allow the user to view detailed information
-about each character.
+### 🔹 Character Detail
+- When a character is selected, a detail screen shows additional information.  
+- Data is displayed reactively through `StateFlow` defined in `ViewModel`.
 
-## Requirements
+### 🔹 Local Storage
+- Uses **Room Database** to cache the characters fetched from the API.  
+- The app first loads data from Room and fetches from the API if local data is unavailable.  
+- Allows access to information even when offline.
 
-1.  **Character List Screen:**
-    * Create an activity that displays a list of characters.
-    * Each character item in the list should show some character information (e.g., picture, name, status).
+### 🔹 Dependency Injection
+- **Hilt** is used to manage dependency injection efficiently.  
+- Enables easy injection into `ViewModels`, `Repositories`, and `UseCases`, reducing coupling between components.
 
-2.  **Character Detail Screen:**
-    * When a user clicks on a character item in the list, a new activity should open, displaying the remaining detailed
-      information about the selected character.
+---
 
-3.  **API Usage:**
-    * Use the Rick and Morty API (https://rickandmortyapi.com/api/) to fetch the character data.
-    * The primary endpoint to retrieve character data is: https://rickandmortyapi.com/api/character
+## 🧱 Architecture
 
-## Technical Guidelines
+The project follows a basic **Layered Architecture** combined with the **MVVM (Model-View-ViewModel)** pattern.
 
-* You are free to use any libraries or frameworks you deem necessary.
-* You are free to choose any appropriate architecture pattern for your application.
-* The application should be implemented using Kotlin.
+---
 
-## Originality
+## 🧰 Technologies Used
 
-Please note that the solution you submit must be your own work. Do not copy solutions from the internet or other sources. Your submission will be reviewed, and we will be looking for your personal approach to solving the problem.
+| Technology                       | Description |
+|----------------------------------|-----------------------------------------|
+| **Kotlin**                       | Main programming language               |
+| **Jetpack Compose**              | Modern declarative UI toolkit           |
+| **Hilt**                         | Dependency injection framework          |
+| **Room**                         | Local data persistence (cache)          |
+| **Retrofit**                     | API communication                       |
+| **Coroutines + Flow**            | Asynchronous and reactive data handling |
+| **Layered Architecture**         | Core architecture                       |
+| **MVVM**                         | Core design pattern                     |
 
-## Creative Freedom
+---
 
-You are encouraged to use your creative freedom and implement the application in a way that you find best. Feel free to
-add extra features, improve the UI, or use different libraries if you think it will enhance the application. The
-provided requirements are the minimum expectations.
+## 🧪 Validation and Testing
 
-## Validation
+To ensure quality and robustness, the following validation steps were performed:
 
-Once you have completed the implementation, please include a separate document or section in your submission detailing
-your validation process. This section should provide a comprehensive explanation of how you approached the validation of
-your implemented application. Detail the steps you took to ensure its correctness, robustness, and adherence to the
-challenge specifications. Include any testing strategies, tools, or techniques you employed.
-
-## Submission
-
-Please submit your project as a zip archive via email to HR.
+- **API Testing:** Verified correct data retrieval and error handling.  
+- **Local Cache:** Confirmed proper saving and loading of cached data from Room.  
+- **State Management:** Tested UI behavior for loading, success, and error states.  
+- **Manual Testing:** Full navigation tests, orientation changes, and data reload scenarios.
