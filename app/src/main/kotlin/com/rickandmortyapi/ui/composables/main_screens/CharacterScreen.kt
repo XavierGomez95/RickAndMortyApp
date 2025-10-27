@@ -17,10 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.rickandmortyapi.R
 import com.rickandmortyapi.data.utils.Resource
-import com.rickandmortyapi.ui.composables.character.CharacterDetailNav
+import com.rickandmortyapi.navigation.AppNavigator
 import com.rickandmortyapi.ui.composables.FailureMessage
 import com.rickandmortyapi.ui.composables.LoadingSpinner
 import com.rickandmortyapi.ui.composables.character.CharacterCard
@@ -30,8 +29,8 @@ import com.rickandmortyapi.ui.viewmodel.CharacterViewModel
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun CharacterScreen (
-    navController: NavController,
     modifier: Modifier,
+    navigator: AppNavigator,
     characterViewModel: CharacterViewModel = hiltViewModel()
 ) {
     val charactersResource = characterViewModel.characterModelStateFlow.collectAsState().value
@@ -73,7 +72,7 @@ fun CharacterScreen (
                         CharacterCard(
                             character = character,
                             onClick = { character ->
-                                navController.navigate(CharacterDetailNav(character.id))
+                                navigator.navigateToCharacterDetail(character.id)
                             }
                         )
                     }

@@ -9,9 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.rickandmortyapi.R
-import com.rickandmortyapi.ui.navigation.MainNavigation
+import com.rickandmortyapi.navigation.AppNavigator
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
 
@@ -21,7 +20,9 @@ object Splash
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(
+    navigator: AppNavigator
+) {
     val logo = R.drawable.rick_morty_logo
 
     BoxWithConstraints (
@@ -45,9 +46,7 @@ fun SplashScreen(navController: NavController) {
             startAnimation = true
             delay(1500)
 
-            navController.navigate(MainNavigation) {
-                popUpTo(Splash) { inclusive = true }
-            }
+            navigator.navigateFromSplashToMain()
         }
 
         Box(

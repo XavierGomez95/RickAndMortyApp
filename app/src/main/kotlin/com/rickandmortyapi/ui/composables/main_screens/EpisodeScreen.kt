@@ -16,20 +16,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.rickandmortyapi.R
 import com.rickandmortyapi.data.utils.Resource
+import com.rickandmortyapi.navigation.AppNavigator
 import com.rickandmortyapi.ui.composables.FailureMessage
 import com.rickandmortyapi.ui.composables.LoadingSpinner
 import com.rickandmortyapi.ui.composables.episode.EpisodeCard
-import com.rickandmortyapi.ui.composables.episode.EpisodeDetailNav
 import com.rickandmortyapi.ui.composables.generic_list_container.SearchListContainer
 import com.rickandmortyapi.ui.viewmodel.EpisodeViewModel
 
 @Composable
 fun EpisodeScreen (
-    navController: NavController,
     modifier: Modifier,
+    navigator: AppNavigator,
     episodeViewModel: EpisodeViewModel = hiltViewModel()
 ) {
     val episodesResource = episodeViewModel.episodes.collectAsState().value
@@ -71,13 +70,12 @@ fun EpisodeScreen (
                         EpisodeCard(
                             episode = episode,
                             onClick = { episode ->
-                                navController.navigate(EpisodeDetailNav(episode.id))
+                                navigator.navigateToEpisodeDetail(episode.id)
                             }
                         )
                     }
                 }
             }
         }
-
     }
 }
