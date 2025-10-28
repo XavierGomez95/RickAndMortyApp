@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.rickandmortyapi.navigation.NavigationWrapper
+import com.rickandmortyapi.ui.theme.RickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -12,7 +13,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // YOUR CODE HERE :)
         setContent {
-            NavigationWrapper()
+            RickAndMortyTheme {
+                NavigationWrapper()
+            }
         }
     }
 }

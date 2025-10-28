@@ -1,6 +1,7 @@
 package com.rickandmortyapi.ui.composables.character
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Circle
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,9 +60,11 @@ fun CharacterDetailScreen(
     }
 
     val characterResource = characterViewModel.singleCharacterStateFlow.collectAsState().value
+
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         when (characterResource) {
@@ -119,7 +123,7 @@ fun CharacterDetailScreen(
                                 fontSize = 16.sp,
                                 modifier = Modifier.weight(1f)
                             )
-                            Row (
+                            Row(
                                 modifier = Modifier.weight(1f),
                                 horizontalArrangement = Arrangement.End,
                                 verticalAlignment = Alignment.CenterVertically
@@ -155,7 +159,7 @@ fun CharacterDetailScreen(
                                 modifier = Modifier.weight(1f)
                             )
 
-                            Row (
+                            Row(
                                 modifier = Modifier.weight(1f),
                                 horizontalArrangement = Arrangement.End,
                                 verticalAlignment = Alignment.CenterVertically
@@ -182,7 +186,7 @@ fun CharacterDetailScreen(
                                 modifier = Modifier.weight(1f)
                             )
 
-                            Row (
+                            Row(
                                 modifier = Modifier.weight(1f),
                                 horizontalArrangement = Arrangement.End,
                                 verticalAlignment = Alignment.CenterVertically
@@ -199,4 +203,5 @@ fun CharacterDetailScreen(
             else -> LoadingSpinner()
         }
     }
+
 }
