@@ -1,4 +1,4 @@
-object Dependencies {
+object AppConfig {
     const val namespace = "com.rickandmortyapi"
 
     const val applicationId = "com.rickandmortyapi"
