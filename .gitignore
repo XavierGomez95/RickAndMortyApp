@@ -61,3 +61,7 @@ Thumbs.db
 .externalNativeBuild
 .cxx
 local.properties
+
+build/
+buildSrc/build/
+.gradle/
