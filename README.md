@@ -24,7 +24,7 @@ The project is developed in **Kotlin** using **Jetpack Compose**, **Room**, **Hi
 
 ### 🔹 Dependency Injection
 - **Hilt** is used to manage dependency injection efficiently.  
-- Enables easy injection into `ViewModels`, `Repositories`, and `UseCases`, reducing coupling between components.
+- Enables easy injection reducing coupling between components.
 
 ---
 
