@@ -30,10 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.rickandmortyapi.R
@@ -41,6 +38,7 @@ import com.rickandmortyapi.data.utils.Resource
 import com.rickandmortyapi.ui.colors.CharacterStatus
 import com.rickandmortyapi.ui.composables.FailureMessage
 import com.rickandmortyapi.ui.composables.LoadingSpinner
+import com.rickandmortyapi.ui.theme.LocalSemanticColors
 import com.rickandmortyapi.ui.viewmodel.CharacterViewModel
 import kotlinx.serialization.Serializable
 
@@ -52,6 +50,8 @@ fun CharacterDetailScreen(
     characterId: Int,
     characterViewModel: CharacterViewModel = hiltViewModel()
 ) {
+    val colors = LocalSemanticColors.current
+
     LaunchedEffect(characterId) {
         val currentState = characterViewModel.singleCharacterStateFlow.value
         if (currentState is Resource.Init) {
@@ -64,7 +64,7 @@ fun CharacterDetailScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(colors.background),
         contentAlignment = Alignment.Center
     ) {
         when (characterResource) {
@@ -102,10 +102,8 @@ fun CharacterDetailScreen(
                         ) {
                             Text(
                                 text = character.name,
-                                style = TextStyle(
-                                    fontSize = 24.sp,
-                                    fontWeight = FontWeight.Bold,
-                                ),
+                                style = MaterialTheme.typography.titleLarge,
+                                color = colors.text,
                             )
                         }
 
@@ -120,7 +118,7 @@ fun CharacterDetailScreen(
                             Text(
                                 text = stringResource(R.string.character_detail__status),
                                 color = CharacterStatus.getColor(character.status),
-                                fontSize = 16.sp,
+                                style = MaterialTheme.typography.bodyLarge,
                                 modifier = Modifier.weight(1f)
                             )
                             Row(
@@ -131,7 +129,7 @@ fun CharacterDetailScreen(
                                 Text(
                                     text = character.status,
                                     color = CharacterStatus.getColor(character.status),
-                                    fontSize = 16.sp
+                                    style = MaterialTheme.typography.bodyLarge,
                                 )
                                 Icon(
                                     imageVector = Icons.Sharp.Circle,
@@ -155,7 +153,8 @@ fun CharacterDetailScreen(
                         ) {
                             Text(
                                 text = stringResource(R.string.character_detail__gender),
-                                fontSize = 16.sp,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.text,
                                 modifier = Modifier.weight(1f)
                             )
 
@@ -166,7 +165,8 @@ fun CharacterDetailScreen(
                             ) {
                                 Text(
                                     text = character.gender,
-                                    fontSize = 16.sp,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = colors.text,
                                 )
                             }
                         }
@@ -182,7 +182,8 @@ fun CharacterDetailScreen(
                         ) {
                             Text(
                                 text = stringResource(R.string.character_detail__species),
-                                fontSize = 16.sp,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.text,
                                 modifier = Modifier.weight(1f)
                             )
 
@@ -193,7 +194,8 @@ fun CharacterDetailScreen(
                             ) {
                                 Text(
                                     text = character.species,
-                                    fontSize = 16.sp,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = colors.text,
                                 )
                             }
                         }

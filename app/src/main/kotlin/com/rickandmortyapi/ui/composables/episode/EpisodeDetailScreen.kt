@@ -18,15 +18,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.rickandmortyapi.R
 import com.rickandmortyapi.data.utils.Resource
 import com.rickandmortyapi.ui.composables.FailureMessage
 import com.rickandmortyapi.ui.composables.LoadingSpinner
+import com.rickandmortyapi.ui.theme.LocalSemanticColors
 import com.rickandmortyapi.ui.viewmodel.EpisodeViewModel
 import kotlinx.serialization.Serializable
 
@@ -38,6 +36,8 @@ fun EpisodeDetailScreen(
     episodeId: Int,
     episodeViewModel: EpisodeViewModel = hiltViewModel()
 ) {
+    val colors = LocalSemanticColors.current
+
     LaunchedEffect(episodeId) {
         val currentState = episodeViewModel.singleEpisode.value
         if (currentState is Resource.Init) {
@@ -71,10 +71,8 @@ fun EpisodeDetailScreen(
                         ) {
                             Text(
                                 text = episode.name,
-                                style = TextStyle(
-                                    fontSize = 24.sp,
-                                    fontWeight = FontWeight.Bold,
-                                )
+                                style = MaterialTheme.typography.titleLarge,
+                                color = colors.text,
                             )
                         }
 
@@ -89,7 +87,8 @@ fun EpisodeDetailScreen(
                         ) {
                             Text(
                                 text = stringResource(R.string.episode_detail__date),
-                                fontSize = 16.sp,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.text,
                                 modifier = Modifier.weight(1f)
                             )
                             Row(
@@ -98,7 +97,8 @@ fun EpisodeDetailScreen(
                             ) {
                                 Text(
                                     text = episode.uiDate ?: stringResource(R.string.unknown),
-                                    fontSize = 16.sp
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = colors.text,
                                 )
                             }
                         }
@@ -114,7 +114,8 @@ fun EpisodeDetailScreen(
                         ) {
                             Text(
                                 text = stringResource(R.string.episode_detail__season),
-                                fontSize = 16.sp,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.text,
                                 modifier = Modifier.weight(1f)
                             )
                             Row(
@@ -123,7 +124,8 @@ fun EpisodeDetailScreen(
                             ) {
                                 Text(
                                     text = episode.uiSeason ?: stringResource(R.string.unknown),
-                                    fontSize = 16.sp
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = colors.text
                                 )
                             }
                         }
@@ -139,7 +141,8 @@ fun EpisodeDetailScreen(
                         ) {
                             Text(
                                 text = stringResource(R.string.episode_detail__episode),
-                                fontSize = 16.sp,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.text,
                                 modifier = Modifier.weight(1f)
                             )
                             Row(
@@ -149,7 +152,8 @@ fun EpisodeDetailScreen(
                                 Text(
                                     text = episode.uiEpisode
                                         ?: stringResource(R.string.unknown),
-                                    fontSize = 16.sp
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = colors.text,
                                 )
                             }
                         }

@@ -1,5 +1,6 @@
 package com.rickandmortyapi.ui.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.rickandmortyapi.R
+import com.rickandmortyapi.ui.theme.LocalSemanticColors
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,6 +36,8 @@ fun AppSearchField(
     shape: Shape = RoundedCornerShape(45.dp), // In case of not specified
     borderWidth: Dp = 2.dp, // In case of not specified
 ) {
+    val colors = LocalSemanticColors.current
+
     SearchBarDefaults.InputField(
         query = query,
         onQueryChange = onQueryChange,
@@ -41,7 +45,10 @@ fun AppSearchField(
         expanded = isActive,
         onExpandedChange = onActiveChange,
         placeholder = {
-            Text(text = placeholder)
+            Text(
+                text = placeholder,
+                color = colors.text.copy(alpha = 0.6f)
+            )
         },
         leadingIcon = { Icon(Icons.Default.Search, null) },
         trailingIcon = {
@@ -62,12 +69,21 @@ fun AppSearchField(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
+            .background(colors.background)
             .border(
                 width = borderWidth,
                 //color = Color(120, 186, 69),
                 //color = Color(32, 156, 111),
                 color = Color(156, 194, 144),
                 shape = shape
-            )
+            ),
+        colors = SearchBarDefaults.inputFieldColors(
+            cursorColor = colors.text,
+            focusedLeadingIconColor = colors.text,
+            unfocusedLeadingIconColor = colors.text,
+            focusedTrailingIconColor = colors.text,
+            unfocusedTrailingIconColor = colors.text,
+            focusedTextColor = colors.text,
+        )
     )
 }
