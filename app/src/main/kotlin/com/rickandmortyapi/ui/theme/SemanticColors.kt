@@ -14,4 +14,27 @@ data class SemanticColors (
     val error: Color,
 
     val text: Color,
+
+    // UI ELEMENTS
+    // TopBar
+    val topBarBackground: Color,
+    val topBarContent: Color,
+
+    // Card
+    val cardBackground: Color,
+    val cardContent: Color,
+    val cardTittle: Color,
+
+    // BottomBar
+    val bottomBarBackground: Color,
+    val bottomBarContent: Color,
+    val bottomBarSelectedIcon: Color,
+    val bottomBarUnselectedIcon: Color,
+    val bottomBarIndicator: Color,
+    val bottomBarDefaultIconColor: Color,
+    val bottomBarDefaultTextColor: Color,
+
+
+    // SearchBar
+    val searchBarBorder: Color,
 )

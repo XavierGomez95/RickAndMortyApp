@@ -1,12 +1,14 @@
 package com.rickandmortyapi.navigation
 
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.rickandmortyapi.ui.theme.LocalSemanticColors
 
 @Composable
 fun BottomBar(
@@ -14,8 +16,12 @@ fun BottomBar(
     currentDestinationRoute: String?,
     screens: List<MainScreen>
 ) {
-    NavigationBar (
+    val colors = LocalSemanticColors.current
+
+    NavigationBar(
         tonalElevation = 4.dp,
+        containerColor = colors.bottomBarBackground,
+        contentColor = MaterialTheme.colorScheme.onSurface,
     ) {
         screens.forEach { screen ->
             val selected = currentDestinationRoute == screen::class.qualifiedName
@@ -30,12 +36,20 @@ fun BottomBar(
                 icon = {
                     Icon(
                         imageVector = screen.icon!!,
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = if (selected)
+                            colors.bottomBarSelectedIcon
+                        else
+                            colors.bottomBarUnselectedIcon
                     )
                 },
                 label = {
                     Text(
-                        stringResource(id = screen.name)
+                        stringResource(id = screen.name),
+                        color = if (selected)
+                            colors.bottomBarSelectedIcon
+                        else
+                            colors.bottomBarUnselectedIcon
                     )
                 }
             )

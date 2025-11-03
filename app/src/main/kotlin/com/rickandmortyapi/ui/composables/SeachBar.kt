@@ -15,7 +15,6 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -74,7 +73,7 @@ fun AppSearchField(
                 width = borderWidth,
                 //color = Color(120, 186, 69),
                 //color = Color(32, 156, 111),
-                color = Color(156, 194, 144),
+                color = colors.searchBarBorder, //Color(156, 194, 144),
                 shape = shape
             ),
         colors = SearchBarDefaults.inputFieldColors(
