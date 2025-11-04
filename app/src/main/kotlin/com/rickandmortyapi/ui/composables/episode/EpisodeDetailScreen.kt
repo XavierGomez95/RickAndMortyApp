@@ -50,7 +50,7 @@ fun EpisodeDetailScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(colors.customBackground),
         contentAlignment = Alignment.Center
     ) {
         when (episodeResource) {
@@ -72,7 +72,7 @@ fun EpisodeDetailScreen(
                             Text(
                                 text = episode.name,
                                 style = MaterialTheme.typography.titleLarge,
-                                color = colors.text,
+                                color = colors.episodeName,
                             )
                         }
 
@@ -88,7 +88,7 @@ fun EpisodeDetailScreen(
                             Text(
                                 text = stringResource(R.string.episode_detail__date),
                                 style = MaterialTheme.typography.bodyLarge,
-                                color = colors.text,
+                                color = colors.episodeDate,
                                 modifier = Modifier.weight(1f)
                             )
                             Row(
@@ -98,7 +98,7 @@ fun EpisodeDetailScreen(
                                 Text(
                                     text = episode.uiDate ?: stringResource(R.string.unknown),
                                     style = MaterialTheme.typography.bodyLarge,
-                                    color = colors.text,
+                                    color = colors.episodeDate,
                                 )
                             }
                         }
@@ -115,7 +115,7 @@ fun EpisodeDetailScreen(
                             Text(
                                 text = stringResource(R.string.episode_detail__season),
                                 style = MaterialTheme.typography.bodyLarge,
-                                color = colors.text,
+                                color = colors.episodeSeason,
                                 modifier = Modifier.weight(1f)
                             )
                             Row(
@@ -125,7 +125,7 @@ fun EpisodeDetailScreen(
                                 Text(
                                     text = episode.uiSeason ?: stringResource(R.string.unknown),
                                     style = MaterialTheme.typography.bodyLarge,
-                                    color = colors.text
+                                    color = colors.episodeSeason
                                 )
                             }
                         }
@@ -142,7 +142,7 @@ fun EpisodeDetailScreen(
                             Text(
                                 text = stringResource(R.string.episode_detail__episode),
                                 style = MaterialTheme.typography.bodyLarge,
-                                color = colors.text,
+                                color = colors.episode,
                                 modifier = Modifier.weight(1f)
                             )
                             Row(
@@ -153,7 +153,7 @@ fun EpisodeDetailScreen(
                                     text = episode.uiEpisode
                                         ?: stringResource(R.string.unknown),
                                     style = MaterialTheme.typography.bodyLarge,
-                                    color = colors.text,
+                                    color = colors.episode,
                                 )
                             }
                         }

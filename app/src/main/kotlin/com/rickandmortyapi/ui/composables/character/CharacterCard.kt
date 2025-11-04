@@ -70,7 +70,7 @@ fun CharacterCard (
                     Text(
                         text = character.name,
                         style = MaterialTheme.typography.titleLarge,
-                        color = colors.text
+                        color = colors.cardTittle
                     )
                 }
             }

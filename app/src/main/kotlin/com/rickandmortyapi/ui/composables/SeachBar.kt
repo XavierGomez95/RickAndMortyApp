@@ -46,7 +46,7 @@ fun AppSearchField(
         placeholder = {
             Text(
                 text = placeholder,
-                color = colors.text.copy(alpha = 0.6f)
+                color = colors.placeholder.copy(alpha = 0.60f)
             )
         },
         leadingIcon = { Icon(Icons.Default.Search, null) },
@@ -68,21 +68,19 @@ fun AppSearchField(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .background(colors.background)
+            .background(colors.customBackground)
             .border(
                 width = borderWidth,
-                //color = Color(120, 186, 69),
-                //color = Color(32, 156, 111),
-                color = colors.searchBarBorder, //Color(156, 194, 144),
+                color = colors.searchBarBorder,
                 shape = shape
             ),
         colors = SearchBarDefaults.inputFieldColors(
-            cursorColor = colors.text,
-            focusedLeadingIconColor = colors.text,
-            unfocusedLeadingIconColor = colors.text,
-            focusedTrailingIconColor = colors.text,
-            unfocusedTrailingIconColor = colors.text,
-            focusedTextColor = colors.text,
+            cursorColor = colors.cursorColor,
+            focusedLeadingIconColor = colors.focusedLeadingIconColor,
+            unfocusedLeadingIconColor = colors.unfocusedLeadingIconColor,
+            focusedTrailingIconColor = colors.focusedTrailingIconColor,
+            unfocusedTrailingIconColor = colors.unfocusedTrailingIconColor,
+            focusedTextColor = colors.focusedTextColor,
         )
     )
 }

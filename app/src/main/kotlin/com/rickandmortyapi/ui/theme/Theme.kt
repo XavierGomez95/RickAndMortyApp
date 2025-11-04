@@ -5,9 +5,8 @@ import androidx.compose.material3.Typography
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -16,119 +15,108 @@ import androidx.compose.ui.unit.sp
 
 
 private val LightSemanticColors = SemanticColors(
-    primary                     = Color(0xFF4CAF50),
-    secondary                   = Color(0xFF8BC34A),
-    background                  = Color(0xFFFFFFFF),
-    surface                     = Color(0xFF000000),
-    onPrimary                   = Color(0xFF00FFFF),
-    onSecondary                 = Color(0xFFFF0000),
-    onBackground                = Color.Black,
-    onSurface                   = Color(0xFF3B3B3B),
-
+    // Failure Text
     error                       = Color(0xFFCF0000),
-
-    // Text
-    text                        = Color.Black,
 
     // UI ELEMENTS
     // TopBar
-    topBarBackground            = Color(0xFFE3ECE4),
-    topBarContent               = Color.White, //todo
+    topBarBackground            = Color(0xFFFFFFFF),
 
     // Card
     cardBackground              = Color(0xFFE3ECE4),
-    cardContent                 = Color.White, //todo
-    cardTittle                  = Color.Black,
+    cardTittle                  = Color(0xFF193334),
+
+    // Character Details
+    characterName               = Color(0xFF193334),
+    characterGender               = Color(0xFF193334),
+    characterSpecie               = Color(0xFF193334),
+
+    // Episode Details
+    episodeName                 = Color(0xFF193334),
+    episodeDate                 = Color(0xFF193334),
+    episodeSeason               = Color(0xFF193334),
+    episode                     = Color(0xFF193334),
 
     // BottomBar
-    bottomBarBackground         = Color(0xFFE3ECE4),
-    bottomBarContent            = Color.White, //todo
-    bottomBarSelectedIcon       = Color.White, //todo
-    bottomBarUnselectedIcon     = Color.Gray, //todo
-    bottomBarIndicator          = Color.White, //todo
-    bottomBarDefaultIconColor   = Color.Black,
-    bottomBarDefaultTextColor   = Color.Black,
+    bottomBarBackground         = Color(0xFFFFFFFF),
+    bottomBarSelectedIcon       = Color(0xFF193334),//Color(0xFF0A8643),
+    bottomBarUnselectedIcon     = Color(0xFF3a9f39),//Color(0xFF13b1c9),
+    bottomBarSelectedText       = Color(0xFF193334),
+    bottomBarUnselectedText     = Color(0xFF3a9f39),
+    bottomBarIndicator          = Color(0xFF193334),
+
+    // Background
+    customBackground            = Color(0xFFFFFFFF),
 
     // SearchBar
-    searchBarBorder = Color(0xFF9CC290)
+    placeholder                 = Color(0xFF193334),
+    cursorColor                 = Color(0xFF193334),
+    focusedLeadingIconColor     = Color(0xFF193334),
+    unfocusedLeadingIconColor   = Color(0xFF193334),
+    focusedTrailingIconColor    = Color(0xFF193334),
+    unfocusedTrailingIconColor  = Color(0xFF193334),
+    focusedTextColor            = Color(0xFF193334),
+    searchBarBorder             = Color(0xFF9CC290)
 )
 
 private val DarkSemanticColors = SemanticColors(
-    primary                     = Color(0xFF4CAF50),
-    secondary                   = Color(0xFF8BC34A),
-    background                  = Color.White,//Color(0xFF121212),
-    surface                     = Color.White,//Color(0xFF1E1E1E),
-    onPrimary                   = Color.White,
-    onSecondary                 = Color.White,
-    onBackground                = Color.White,
-    onSurface                   = Color.White,
-
-    // Text
-    text                        = Color.White,
+    // Failure Text
     error                       = Color(0xFFCF6679),
 
-    // Todo: change color to dark one
     // UI Elements
     // TopBar
-    topBarBackground            = Color(0xFFE3ECE4),
-    topBarContent               = Color.White,
+    topBarBackground            = Color(0xFF193334),
 
     // Card
-    cardBackground              = Color(0xFFE3ECE4),
-    cardContent                 = Color.White,
-    cardTittle                  = Color.Black,
+    cardBackground              = Color(0xFFfefac3),
+    cardTittle                  = Color(0xFF193334),
+
+    // Character Details
+    characterName               = Color(0xFFFFFFFF),
+    characterGender             = Color(0xFFFFFFFF),
+    characterSpecie             = Color(0xFFFFFFFF),
+
+    // Episode Details
+    episodeName                 = Color(0xFFFFFFFF),
+    episodeDate                 = Color(0xFFFFFFFF),
+    episodeSeason               = Color(0xFFFFFFFF),
+    episode                     = Color(0xFFFFFFFF),
 
     // BottomBar
-    bottomBarBackground         = Color(0xFF323232),
-    bottomBarContent            = Color.White,
-    bottomBarSelectedIcon       = Color.White,
-    bottomBarUnselectedIcon     = Color(0xFF323232),
-    bottomBarIndicator          = Color.White,
-    bottomBarDefaultIconColor   = Color.White,
-    bottomBarDefaultTextColor   = Color.White,
+    bottomBarBackground         = Color(0xFF193334),
+    bottomBarSelectedIcon       = Color(0xFFFFFFFF),
+    bottomBarUnselectedIcon     = Color(0xFFBCBCBC),
+    bottomBarSelectedText       = Color(0xFFFFFFFF),
+    bottomBarUnselectedText     = Color(0xFFBCBCBC),
+    bottomBarIndicator          = Color(0xFFFFFFFF),
 
+    // Background
+    customBackground            = Color(0xFF193334),
 
     // SearchBar
-    searchBarBorder = Color(0xFF9CC290)
+    placeholder                 = Color(0xFFFFFFFF),
+    cursorColor                 = Color(0xFFFFFFFF),
+    focusedLeadingIconColor     = Color(0xFFFFFFFF),
+    unfocusedLeadingIconColor   = Color(0xFFFFFFFF),
+    focusedTrailingIconColor    = Color(0xFFFFFFFF),
+    unfocusedTrailingIconColor  = Color(0xFFFFFFFF),
+    focusedTextColor            = Color(0xFFFFFFFF),
+    searchBarBorder             = Color(0xFFd2e054) // Color(0xFF9CC290)
 )
 
 val LocalSemanticColors = staticCompositionLocalOf { LightSemanticColors }
 
-private val DarkColorScheme = darkColorScheme(
-    primary         = DarkSemanticColors.primary,
-    secondary       = DarkSemanticColors.secondary,
-    background      = DarkSemanticColors.background,
-    surface         = DarkSemanticColors.surface,
-    onPrimary       = DarkSemanticColors.onPrimary,
-    onSecondary     = DarkSemanticColors.onSecondary,
-    onBackground    = DarkSemanticColors.onBackground,
-    onSurface       = DarkSemanticColors.onSurface,
-    error           = DarkSemanticColors.error
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary         = LightSemanticColors.primary,
-    secondary       = LightSemanticColors.secondary,
-    background      = LightSemanticColors.background,
-    surface         = LightSemanticColors.surface,
-    onPrimary       = LightSemanticColors.onPrimary,
-    onSecondary     = LightSemanticColors.onSecondary,
-    onBackground    = LightSemanticColors.onBackground,
-    onSurface       = LightSemanticColors.onSurface,
-    error           = LightSemanticColors.error
-)
-
 @Composable
 fun RickAndMortyTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = isSystemInDarkTheme(), // Android 12+ or newer version
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) DarkColorScheme else LightColorScheme
+    val colors = if (darkTheme) DarkSemanticColors else LightSemanticColors
 
     val typographyInstance = Typography(
         bodyLarge = TextStyle(
-            color = colors.onBackground,
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal,
         ),
         titleLarge = TextStyle(
             fontSize = 24.sp,
@@ -136,9 +124,10 @@ fun RickAndMortyTheme(
         ),
     )
 
-    MaterialTheme(
-        colorScheme = colors,
-        typography = typographyInstance,
-        content = content
-    )
+    CompositionLocalProvider(LocalSemanticColors provides colors) {
+        MaterialTheme(
+            typography = typographyInstance,
+            content = content
+        )
+    }
 }

@@ -49,7 +49,7 @@ fun EpisodeCard (
                 Text(
                     text = episode.name,
                     style = MaterialTheme.typography.titleLarge,
-                    color = colors.text
+                    color = colors.cardTittle
                 )
             }
         }

@@ -1,5 +1,6 @@
 package com.rickandmortyapi.ui.composables.generic_list_container
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rickandmortyapi.ui.composables.AppSearchField
+import com.rickandmortyapi.ui.theme.LocalSemanticColors
 
 
 @Composable
@@ -21,10 +23,13 @@ fun SearchListContainer(
     placeholder: String,
     content: @Composable () -> Unit
 ) {
+    val colors = LocalSemanticColors.current
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(top = 8.dp)
+            .background(colors.customBackground)
     ) {
         AppSearchField(
             modifier = modifier,

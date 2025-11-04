@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.rickandmortyapi.navigation.AppNavigator
 import com.rickandmortyapi.navigation.BottomBar
 import com.rickandmortyapi.navigation.MainScreen
 import com.rickandmortyapi.navigation.TopBar
+import com.rickandmortyapi.ui.theme.LocalSemanticColors
 import kotlinx.serialization.Serializable
 
 
@@ -25,6 +25,7 @@ object MainNavigation
 fun MainNavigationController(
     navigator: AppNavigator,
 ) {
+    val colors = LocalSemanticColors.current
     val mainNavHost = rememberNavController()
 
     LaunchedEffect(Unit) {
@@ -38,7 +39,7 @@ fun MainNavigationController(
 
 
     Scaffold(
-        containerColor = Color.White,
+        containerColor = colors.customBackground,
         topBar = {
             TopBar()
         },

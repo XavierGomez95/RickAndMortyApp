@@ -64,7 +64,7 @@ fun CharacterDetailScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(colors.background),
+            .background(colors.customBackground),
         contentAlignment = Alignment.Center
     ) {
         when (characterResource) {
@@ -103,7 +103,7 @@ fun CharacterDetailScreen(
                             Text(
                                 text = character.name,
                                 style = MaterialTheme.typography.titleLarge,
-                                color = colors.text,
+                                color = colors.characterName,
                             )
                         }
 
@@ -154,7 +154,7 @@ fun CharacterDetailScreen(
                             Text(
                                 text = stringResource(R.string.character_detail__gender),
                                 style = MaterialTheme.typography.bodyLarge,
-                                color = colors.text,
+                                color = colors.characterGender,
                                 modifier = Modifier.weight(1f)
                             )
 
@@ -166,7 +166,7 @@ fun CharacterDetailScreen(
                                 Text(
                                     text = character.gender,
                                     style = MaterialTheme.typography.bodyLarge,
-                                    color = colors.text,
+                                    color = colors.characterGender,
                                 )
                             }
                         }
@@ -183,7 +183,7 @@ fun CharacterDetailScreen(
                             Text(
                                 text = stringResource(R.string.character_detail__species),
                                 style = MaterialTheme.typography.bodyLarge,
-                                color = colors.text,
+                                color = colors.characterSpecie,
                                 modifier = Modifier.weight(1f)
                             )
 
@@ -195,7 +195,7 @@ fun CharacterDetailScreen(
                                 Text(
                                     text = character.species,
                                     style = MaterialTheme.typography.bodyLarge,
-                                    color = colors.text,
+                                    color = colors.characterSpecie,
                                 )
                             }
                         }

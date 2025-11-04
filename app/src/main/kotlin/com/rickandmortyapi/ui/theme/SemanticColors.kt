@@ -3,38 +3,46 @@ package com.rickandmortyapi.ui.theme
 import androidx.compose.ui.graphics.Color
 
 data class SemanticColors (
-    val primary: Color,
-    val onPrimary: Color,
-    val secondary: Color,
-    val onSecondary: Color,
-    val background: Color,
-    val surface: Color,
-    val onBackground: Color,
-    val onSurface: Color,
+    // Failure Text
     val error: Color,
-
-    val text: Color,
 
     // UI ELEMENTS
     // TopBar
     val topBarBackground: Color,
-    val topBarContent: Color,
 
     // Card
     val cardBackground: Color,
-    val cardContent: Color,
     val cardTittle: Color,
+
+    // Character Details
+    val characterName: Color,
+    val characterGender: Color,
+    val characterSpecie: Color,
+
+    // Character Details
+    val episodeName: Color,
+    val episodeDate: Color,
+    val episodeSeason: Color,
+    val episode: Color,
 
     // BottomBar
     val bottomBarBackground: Color,
-    val bottomBarContent: Color,
     val bottomBarSelectedIcon: Color,
     val bottomBarUnselectedIcon: Color,
+    val bottomBarSelectedText: Color,
+    val bottomBarUnselectedText: Color,
     val bottomBarIndicator: Color,
-    val bottomBarDefaultIconColor: Color,
-    val bottomBarDefaultTextColor: Color,
 
+    // Background
+    val customBackground: Color,
 
     // SearchBar
+    val placeholder: Color,
+    val cursorColor: Color,
+    val focusedLeadingIconColor: Color,
+    val unfocusedLeadingIconColor: Color,
+    val focusedTrailingIconColor: Color,
+    val unfocusedTrailingIconColor: Color,
+    val focusedTextColor: Color,
     val searchBarBorder: Color,
 )
