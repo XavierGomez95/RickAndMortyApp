@@ -10,6 +10,12 @@
     <!-- characters errors -->
     <string name="characters_failure">Error while loading characters</string>
     <string name="single_character_failure">Error while loading the character data</string>
+    <string name="image_not_available">Image not available</string>
+    <string name="image_not_available_description">Image not available for character %1$s</string>
+
+    <!-- images -->
+    <string name="character_image_description">%1$s image</string>
+    <string name="character_card_description">%1$s card</string>
 
     <!-- episodes errors -->
     <string name="episodes_failure">Error while loading episode</string>

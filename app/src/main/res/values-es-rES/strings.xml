@@ -11,6 +11,12 @@
     <!-- characters errors -->
     <string name="characters_failure">Error al cargar los personajes</string>
     <string name="single_character_failure">Error al cargar la información del personaje</string>
+    <string name="image_not_available">Imagen no disponible</string>
+    <string name="image_not_available_description">Imagen no disponible para el personaje %1$s</string>
+
+    <!-- images -->
+    <string name="character_image_description">Imagen de %1$s</string>
+    <string name="character_card_description">Tarjeta de %1$s</string>
 
     <!-- episodes errors -->
     <string name="episodes_failure">Error al cargar los episodios</string>

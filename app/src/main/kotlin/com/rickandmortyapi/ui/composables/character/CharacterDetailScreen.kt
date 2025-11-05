@@ -29,10 +29,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.rickandmortyapi.R
 import com.rickandmortyapi.data.utils.Resource
 import com.rickandmortyapi.ui.colors.CharacterStatus
@@ -40,6 +42,7 @@ import com.rickandmortyapi.ui.composables.FailureMessage
 import com.rickandmortyapi.ui.composables.LoadingSpinner
 import com.rickandmortyapi.ui.theme.LocalSemanticColors
 import com.rickandmortyapi.ui.viewmodel.CharacterViewModel
+import com.rickandmortyapi.utils.applyDefaultCoilConfig
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -71,7 +74,13 @@ fun CharacterDetailScreen(
             Resource.Failure -> FailureMessage(messageError = stringResource(R.string.single_character_failure))
             is Resource.Success -> {
                 val character = characterResource.data
-                val painter = rememberAsyncImagePainter(model = character.image)
+                val painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(character.image)
+                        .applyDefaultCoilConfig()
+                        .build()
+                )
+
                 Column(
                     modifier = Modifier
                         .verticalScroll(
